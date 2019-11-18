@@ -59,20 +59,31 @@ function Signup() {
     placeholder: 'Senha',
     value: '',
   })}
+  ${Input({
+    type: 'text',
+    class: 'adress-input',
+    placeholder: 'Endereço para troca',
+    value: '',
+  })}
     ${Button({
-    class: 'btn btn-register btn-gray',
+    class: 'btn-register',
     id: 'btn-new-user',
     onclick: newUser,
+    title: 'Cadastrar',
+  })}
+  ${Button({
+    class: 'btn-back',
+    onclick: 
     title: 'Cadastrar',
   })}
   `;
   const template = `
     <header class="main-header">
-      <h1>Bem vindo(a)!</h1>
+      <img src='/images/logo2.png'/>
     </header>
     <form class="form-content-signup">
         <main class="register-input">
-        <p class="register-text">Para realizar o cadastro, preencha as informações abaixo:</p>
+        <p class="register-text">Faça parte da nossa comunidade de leitores!</p>
         ${userInfo}
         <div id="errorMessageSignup" class="error-message"></div>
       </main>
