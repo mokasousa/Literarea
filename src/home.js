@@ -35,7 +35,7 @@ const searchInAPI = () => {
              `<div class="book" data-id="${element.id}">
                 <img src="${element.volumeInfo.imageLinks.thumbnail}"/>
                 <p>${element.volumeInfo.title}</p>
-                <button type="button" class="wish-list" id="${element.id}" onclick="pushToArray()"> Quero </button>
+                <button type="button" class="wish-list" data-id="${element.id}" onclick="pushToArray()"> Quero </button>
                 <button type="button" class="library"> Tenho </button>
             </div>`
             allBooks.innerHTML += template
@@ -44,7 +44,7 @@ const searchInAPI = () => {
 }
 
 const pushToArray = () => {
-   const btnId = document.querySelector('.wish-list').id
+   const btnId = document.querySelector('.wish-list').target.dataset.id
    console.log(btnId)
     // template = 
     // `<div class="book">
