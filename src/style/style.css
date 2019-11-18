@@ -40,7 +40,7 @@
 .email{
     color: #591E3A;
     font-weight: bold;
-    margin: 3% 5% 5% 5%;
+    margin: 3% 5% 2% 5%;
 }
 
 .email-input{
@@ -52,13 +52,13 @@
 .password{
     color: #591E3A;
     font-weight: bold;
-    margin: 3% 5% 5% 5%;
+    margin: 3% 5% 2% 5%;
 }
 
 .password-input{
     border-bottom: 2px solid #b6b6b6;
     width: 90%;
-    margin: 0% 0% 10% 5%;
+    margin: 0% 0% 5% 5%;
 }
 
 .login-btns{
@@ -108,6 +108,79 @@
 .signup-bg{
     background-color: #8C2E86;
 }
+
+.form-content-signup{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 5%;
+    height: 530px;
+}
+
+.register-logo{
+    width: 60px;
+    height: 75px;
+    margin: 7% 5% 3% 5%;
+}
+
+.register-text{
+    font-size: 130%;
+    font-weight: bold;
+    margin: 5% 3% 5% 5%;
+    
+}
+
+.name{
+    color: #591E3A;
+    font-weight: bold;
+    margin: 3% 5% 2% 5%;
+}
+
+.name-input{
+    border-bottom: 2px solid #b6b6b6;
+    width: 90%;
+    margin: 0% 5% 3% 5%;
+}
+
+.adress{
+    color: #591E3A;
+    font-weight: bold;
+    margin: 3% 5% 2% 5%;
+}
+
+.adress-input{
+    border-bottom: 2px solid #b6b6b6;
+    width: 90%;
+    margin: 0% 5% 3% 5%;
+}
+
+.btn-register{
+    background-color: #F28705;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 140px;
+    height: 32px;
+    margin: auto;
+}
+
+.btn-back{
+    background-color: #F28705;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 140px;
+    height: 32px;
+    margin: auto;
+}
+
+#errorMessageSignup{
+    font-size: 80%;
+    color: red;
+}
+
 
 }
 

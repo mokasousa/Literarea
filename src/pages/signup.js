@@ -11,7 +11,7 @@ function newUser() {
       .createUserWithEmailAndPassword(email, password)
       .then((resp) => {
         if (resp.user) {
-            resp.user.updateProfile({
+          resp.user.updateProfile({
             displayName: name,
           })
             .then(() => {
@@ -41,25 +41,29 @@ function newUser() {
 
 function Signup() {
   const userInfo = `
+    <p class='name'>Nome</p>
     ${Input({
     type: 'text',
     class: 'name-input',
     placeholder: 'Nome',
     value: '',
   })}
+    <p class='email'>E-mail</p>
     ${Input({
     type: 'email',
     class: 'email-input',
-    placeholder: 'Email',
+    placeholder: 'exemplo@email.com',
     value: '',
   })}
+    <p class='password'>Senha</p>
     ${Input({
     type: 'password',
     class: 'password-input',
     placeholder: 'Senha',
     value: '',
   })}
-  ${Input({
+    <p class='adress'>Endereço</p>
+    ${Input({
     type: 'text',
     class: 'adress-input',
     placeholder: 'Endereço para troca',
@@ -69,21 +73,28 @@ function Signup() {
     class: 'btn-register',
     id: 'btn-new-user',
     onclick: newUser,
-    title: 'Cadastrar',
+    title: 'CADASTRAR',
   })}
-  
+
+  ${Button({
+    class: 'btn-back',
+    id: 'btn-back',
+    onclick: newUser,
+    title: 'VOLTAR',
+  })}
+
   `;
   const template = `
-    <header class="main-header">
-      <img src='/images/logo2.png'/>
-    </header>
-    <form class="form-content-signup">
-        <main class="register-input">
-        <p class="register-text">Faça parte da nossa comunidade de leitores!</p>
-        ${userInfo}
+
+
+  <form class="form-content-signup">
+  <div class='logo-container'><img class='register-logo' src='/images/logo2.png'/></div>
+    <main class="register-input">
+      <p class="register-text">Faça parte da nossa comunidade de leitores!</p>
+      ${userInfo}
         <div id="errorMessageSignup" class="error-message"></div>
-      </main>
-    </form>
+    </main>
+  </form>
     `;
   return template;
 }
