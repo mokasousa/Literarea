@@ -71,11 +71,7 @@ function Signup() {
     onclick: newUser,
     title: 'Cadastrar',
   })}
-  ${Button({
-    class: 'btn-back',
-    onclick: 
-    title: 'Cadastrar',
-  })}
+  
   `;
   const template = `
     <header class="main-header">
