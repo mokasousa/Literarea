@@ -5,7 +5,7 @@ import Input from '../components/input.js';
 function loginRegisteredUser() {
   const email = document.querySelector('.email-input').value;
   const password = document.querySelector('.password-input').value;
-  window.auth.signInWithEmailAndPassword(email, password)
+  firebase.auth().signInWithEmailAndPassword(email, password)
     .then((cred) => {
       if (cred.user) {
         window.location = '#feed';
@@ -24,11 +24,11 @@ function signInWithAccount(provider) {
     .signInWithPopup(provider)
     .then((result) => {
       const user = result.user;
-      window.db.collection('users').doc(user.uid).get().then((doc) => {
+      firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
         if (doc.data()) {
           window.location.hash = '#feed';
         } else {
-          window.db.collection('users').doc(user.uid).set({
+          firebase.firestore().collection('users').doc(user.uid).set({
             name: user.displayName,
             biography: '',
           });
