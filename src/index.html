@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Literárea</title>
+  <link rel="icon" type="img/" href="img/fruits.png">
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  
+</head>
+
+<body>
+  <main class="page"></main>
+
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-storage.js"></script>
+  <!--<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>-->
+
+  <script>
+  const firebaseConfig = {
+      apiKey: "AIzaSyBtW98pkBxmGYrT2hFvZMOvRQlwbh4qkCI",
+      authDomain: "literarea-app.firebaseapp.com",
+      databaseURL: "https://literarea-app.firebaseio.com",
+      projectId: "literarea-app",
+      storageBucket: "literarea-app.appspot.com",
+      messagingSenderId: "514043599875",
+      appId: "1:514043599875:web:f019ee9a3c591630aa8236",
+      measurementId: "G-CCJ7HBJ0LJ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <!--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  async defer></script>-->  
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
