@@ -1,14 +1,15 @@
 
-import Button from '../components/button.js';
-import Input from '../components/input.js';
+import Button from '../Components/button.js';
+import Input from '../Components/input.js';
 
 function loginRegisteredUser() {
   const email = document.querySelector('.email-input').value;
   const password = document.querySelector('.password-input').value;
-  window.auth.signInWithEmailAndPassword(email, password)
+  firebase.auth()
+  .signInWithEmailAndPassword(email, password)
     .then((cred) => {
       if (cred.user) {
-        window.location = '#feed';
+        window.location = '#home';
       }
     }).catch(() => {
       const errorMessageField = document.getElementById('errorMessage');
@@ -24,15 +25,15 @@ function signInWithAccount(provider) {
     .signInWithPopup(provider)
     .then((result) => {
       const user = result.user;
-      window.db.collection('users').doc(user.uid).get().then((doc) => {
+      firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
         if (doc.data()) {
-          window.location.hash = '#feed';
+          window.location.hash = '#home';
         } else {
-          window.db.collection('users').doc(user.uid).set({
+          firebase.firestore().collection('users').doc(user.uid).set({
             name: user.displayName,
             biography: '',
           });
-          window.location.hash = '#feed';
+          window.location.hash = '#home';
         }
       });
     });
@@ -71,9 +72,10 @@ function Login() {
   })}
   `;
   const template = `
+  
   <article class='login-page'>
   <form class="form-content-login">
-    <h1>Literárea</h1> 
+    <img src='/images/Logo.png'/><br>
     ${userLogin}
     <div id="errorMessage" class="error-message"></div>
     <p>Ainda não é membro? 
