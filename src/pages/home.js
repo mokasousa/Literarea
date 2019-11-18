@@ -3,15 +3,16 @@ import Button from "../Components/button.js"
 
 const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
 const main = document.querySelector('.page')
+let bookUrl = ''
 
-function Home() {
+const Home = () => {
  return main.innerHTML = `
- ${Input({
-   type: 'text',
-   class: 'search',
-   placeholder: 'Título ou Autor', 
-   value: '',
- })
+  ${Input({
+    type: 'text',
+    class: 'search',
+    placeholder: 'Título ou Autor', 
+    value: '',
+  })
  }
  ${Button({
   type: 'submit',
@@ -24,12 +25,6 @@ function Home() {
 <section class="all-books"></section>
 `
 }
-
-const searchButton = document.querySelector('.search-btn')
-
-let searchData = ''
-let bookUrl = ''
-const wishList = []
 
 const test = () => {
   const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
@@ -63,42 +58,72 @@ const searchInAPI = (bookUrl) => {
                 <p>${book.volumeInfo.title}</p>
                 <p> ${book.id}</p>
                 <button type="button" class="wish-list" data-id="${book.id}" 
-                  onclick="app.pushToArray(event.target.dataset.id)"> Quero </button>
-                <button type="button" class="library"> Tenho </button>
-            </div>`
+                  onclick="app.iWantButton(event.target.dataset.id)"> Quero </button>
+                <button type="button" class="wish-list" data-id="${book.id}" 
+                onclick="app.iHaveButton(event.target.dataset.id)"> Tenho </button>
+                `
             allBooks.innerHTML += template
         })
     })
 }
 
 
-const pushToArray = (id) => {
+const iWantButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
     .then((data) => {
       const title = data.items[0].volumeInfo.title;
       const bookImage = data.items[0].volumeInfo.imageLinks.thumbnail;
       const author = data.items[0].volumeInfo.authors;
-      firebase.firestore().collection('books').add({
+      const wishBooks = {
         book: id,
         title: title,
         photo: bookImage,
         author: author,
-      })
+      }
+
+      const actualUser = firebase.auth().currentUser.uid
+      firebase.firestore()
+      .collection('users')
+      .doc(actualUser)
+      .collection('iWant')
+      .add(wishBooks)
+      .then(console.log('funfou'))
+      
     })
   .then(alert("livro adicionado"))
+}
 
+const iHaveButton = (id) => {
+  fetch(bookAPI+id)
+    .then(data => data.json())
+    .then((data) => {
+      const title = data.items[0].volumeInfo.title;
+      const bookImage = data.items[0].volumeInfo.imageLinks.thumbnail;
+      const author = data.items[0].volumeInfo.authors;
+      const myBooks = {
+        book: id,
+        title: title,
+        photo: bookImage,
+        author: author,
+      }
 
-  // console.log(btnId)
-  // btnId.forEach(button => {
-  //   button
-  //   button.dataset.id
-  // })
+      const actualUser = firebase.auth().currentUser.uid
+      firebase.firestore()
+      .collection('users')
+      .doc(actualUser)
+      .collection('iHave')
+      .add(myBooks)
+      .then(console.log('funfou'))
+      
+    })
+  .then(alert("livro adicionado"))
 }
 
 
 window.app = {
-  pushToArray: pushToArray,
+  iHaveButton: iHaveButton,
+  iWantButton: iWantButton,
   test: test,
   searchInAPI: searchInAPI,
 }
