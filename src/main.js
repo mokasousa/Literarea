@@ -1,5 +1,6 @@
 import Login from './pages/login.js';
 import Signup from './pages/signup.js';
+import Home from './pages/home.js';
 
 function locationHashChanged() {
   if (window.location.hash === '#home') {
