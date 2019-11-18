@@ -46,41 +46,46 @@ function loginGoogleUser() {
 
 function Login() {
   const userLogin = `
+
+  <p class='email'>E-mail</p>
   ${Input({
     type: 'email',
     class: 'email-input',
-    placeholder: 'Email',
+    placeholder: 'exemplo@email.com',
     value: '',
   })}
+
+  <p class='password'>Senha</p>
   ${Input({
     type: 'password',
     class: 'password-input',
     placeholder: 'Senha',
     value: '',
   })}
+
+  <div class='login-btns'>
   ${Button({
-    class: 'btn btn-gray',
+    class: 'btn-login',
     id: 'btn-log-in',
     onclick: loginRegisteredUser,
-    title: 'Entrar',
+    title: 'ENTRAR',
   })}
   ${Button({
     id: 'authGoogleButton',
     class: 'btn-google',
     onclick: loginGoogleUser,
-    title: '<span class="icon-google"></span><span class="button-text-google">Entrar com Google</span>',
+    title: `<img src='/images/google-btn.png'>`,
   })}
+  </div>
   `;
   const template = `
   
   <article class='login-page'>
   <form class="form-content-login">
-    <img src='/images/Logo.png'/><br>
+    <div class='logo-container'><img class='login-logo' src='/images/Logo.png'/></div><br>
     ${userLogin}
     <div id="errorMessage" class="error-message"></div>
-    <p>Ainda não é membro? 
-      <a href="#signup">Cadastre-se!</a>
-    </p> 
+    <p class='register-call'>É novo por aqui?<a class='register-link' href="#signup">REGISTRE-SE!</a></p> 
   </form>
   </article>
   `;
