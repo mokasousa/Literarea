@@ -1,18 +1,77 @@
 import Input from "../Components/input.js";
 import Button from "../Components/button.js"
 
+function initMap() {
+
+  const options = {
+    center: {lat: -23.557536, lng: -46.662385},
+    zoom: 12
+  };
+
+  const map = new google.maps.Map(document.getElementById('map'), options);
+  
+  let markers = [
+      {
+          coords:{lat: -23.557231, lng: -46.659413},
+          // icon: '../img/purple-pin.png',
+          content: '<p>Manuel da Costa</p>'
+      },//ibmec
+      {
+          coords:{lat: -23.556926, lng: -46.662106},
+          // icon: '../img/purple-pin.png',
+          content: '<p>Adriana</p>'
+      },
+      {
+          coords:{lat: -23.557811, lng: -46.663630},
+          // icon: '../img/purple-pin.png',
+          content: '<p>Renata</p>'
+      }
+  ];
+
+  function addMarker(props){
+      const marker = new google.maps.Marker({
+              position:props.coords,
+              map: map,
+              contents: props.content,
+              //icon: props.icon,
+          });
+
+      let infoWindow = new google.maps.InfoWindow({
+          content: props.content,
+      });
+
+      marker.addListener('click', () => {
+          infoWindow.open(map, marker);
+          //ADD aqui o get do firebase
+      });
+      return marker;
+  }
+
+  markers.forEach(i => {
+      //console.log(i);
+      addMarker(i);
+  });
+}
+
 const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
 const main = document.querySelector('.page')
 let bookUrl = ''
 
-const Home = () => {
+
+function Home() {
+  let location = 'Alameda Santos 2356 Cerqueira Cesar Sao Paulo Brasil';
+  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyAUaI90oFUYGhg6NNi4G8n37ahqzP3laUk")
+  .then(response => response.json())
+  .then(res => console.log(res.results[0].geometry.location));
+
  return main.innerHTML = `
-  ${Input({
-    type: 'text',
-    class: 'search',
-    placeholder: 'Título ou Autor', 
-    value: '',
-  })
+ <div id="map"></div>
+ ${Input({
+   type: 'text',
+   class: 'search',
+   placeholder: 'Título ou Autor', 
+   value: '',
+ })
  }
  ${Button({
   type: 'submit',
@@ -120,6 +179,7 @@ const iHaveButton = (id) => {
   .then(alert("livro adicionado"))
 }
 
+setTimeout(initMap, 3000);
 
 window.app = {
   iHaveButton: iHaveButton,
@@ -128,4 +188,4 @@ window.app = {
   searchInAPI: searchInAPI,
 }
 
-export default Home; 
+export default Home;
