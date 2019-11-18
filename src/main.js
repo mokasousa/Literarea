@@ -12,6 +12,7 @@ function locationHashChanged() {
         document.getElementsByTagName('body')[0].className = 'login-bg';
       } else if (window.location.hash === '#signup') {
         document.querySelector('main').innerHTML = Signup();
+        document.getElementsByTagName('body')[0].className = 'signup-bg'
       } 
       
     } else if (!user) {
