@@ -3,9 +3,10 @@
     padding: 0;
     border: none;
     margin: 0;
+    font-family: 'Lato', sans-serif;
 }
 
-html{
+.login-page{
     width: 100%;
     height: 100%;
 }
@@ -14,11 +15,95 @@ html{
     background-color: #8C2E86;
 }
 
+.login-logo{
+    margin: 7% 5% 3% 5%;
+    width: 120px;
+    height: 165px;
+}
+
+.logo-container{
+    display: flex;
+    justify-content: center;
+}
+
 .form-content-login{
+    display: flex;
+    flex-direction: column;
     background-color: white;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     margin: 5%;
     height: 530px;
 }
+
+.email{
+    color: #591E3A;
+    font-weight: bold;
+    margin: 3% 5% 5% 5%;
+}
+
+.email-input{
+    border-bottom: 2px solid #b6b6b6;
+    width: 90%;
+    margin: 0% 5% 3% 5%;
+}
+
+.password{
+    color: #591E3A;
+    font-weight: bold;
+    margin: 3% 5% 5% 5%;
+}
+
+.password-input{
+    border-bottom: 2px solid #b6b6b6;
+    width: 90%;
+    margin: 0% 0% 10% 5%;
+}
+
+.login-btns{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btn-login{
+    background-color: #F28705;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 260px;
+    height: 32px;
+    margin: auto;
+}
+
+.btn-google{
+    margin: 5% 5% 10% 5%;
+    background: transparent;
+}
+
+.register-call{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80%;
+    
+}
+
+.register-link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    text-decoration: none;
+    background-color: #F28705;
+    font-weight: bold;
+    color: white;
+    border-radius: 15px;
+    width: 100px;
+    height: 20px;
+    padding: 2px;
+}
+
+
 
 }
