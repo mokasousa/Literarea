@@ -65,7 +65,8 @@ function Home() {
   .then(res => console.log(res.results[0].geometry.location));
 
  return main.innerHTML = `
- <div id="map"></div>
+ <header> Literárea <a href="#login"> Sair </a></header>
+ <div id="map"> oi </div>
  ${Input({
    type: 'text',
    class: 'search',
@@ -150,7 +151,7 @@ const iWantButton = (id) => {
       .then(console.log('funfou'))
       
     })
-  .then(alert("livro adicionado"))
+  .then(alert("livro adicionado á lista de Desejos"))
 }
 
 const iHaveButton = (id) => {
@@ -176,12 +177,13 @@ const iHaveButton = (id) => {
       .then(console.log('funfou'))
       
     })
-  .then(alert("livro adicionado"))
+  .then(alert("livro adicionado á Seus Livros "))
 }
 
 setTimeout(initMap, 3000);
 
 window.app = {
+  initMap: initMap,
   iHaveButton: iHaveButton,
   iWantButton: iWantButton,
   test: test,
