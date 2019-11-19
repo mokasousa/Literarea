@@ -1,57 +1,7 @@
 import Input from "../Components/input.js";
 import Button from "../Components/button.js"
+import InitMap from "../Components/map.js"
 
-function initMap() {
-
-  const options = {
-    center: {lat: -23.557536, lng: -46.662385},
-    zoom: 12
-  };
-
-  const map = new google.maps.Map(document.getElementById('map'), options);
-  
-  let markers = [
-      {
-          coords:{lat: -23.557231, lng: -46.659413},
-          // icon: '../img/purple-pin.png',
-          content: '<p>Manuel da Costa</p>'
-      },//ibmec
-      {
-          coords:{lat: -23.556926, lng: -46.662106},
-          // icon: '../img/purple-pin.png',
-          content: '<p>Adriana</p>'
-      },
-      {
-          coords:{lat: -23.557811, lng: -46.663630},
-          // icon: '../img/purple-pin.png',
-          content: '<p>Renata</p>'
-      }
-  ];
-
-  function addMarker(props){
-      const marker = new google.maps.Marker({
-              position:props.coords,
-              map: map,
-              contents: props.content,
-              //icon: props.icon,
-          });
-
-      let infoWindow = new google.maps.InfoWindow({
-          content: props.content,
-      });
-
-      marker.addListener('click', () => {
-          infoWindow.open(map, marker);
-          //ADD aqui o get do firebase
-      });
-      return marker;
-  }
-
-  markers.forEach(i => {
-      //console.log(i);
-      addMarker(i);
-  });
-}
 
 const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
 const main = document.querySelector('.page')
@@ -59,30 +9,33 @@ let bookUrl = ''
 
 
 function Home() {
-  let location = 'Alameda Santos 2356 Cerqueira Cesar Sao Paulo Brasil';
-  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyAUaI90oFUYGhg6NNi4G8n37ahqzP3laUk")
-  .then(response => response.json())
-  .then(res => console.log(res.results[0].geometry.location));
+
+  setTimeout(InitMap, 3000);
 
  return main.innerHTML = `
- <header><img src="/images/literarea.png"/> <a href="#login"> Sair </a></header>
- <div id="map"> oi </div>
+ <header><img src="/images/literarea.png"/> 
+ ${Button({
+  type: 'submit',
+  class: 'btn',
+  onclick: logOut,
+  title: 'Sair',
+  })}
+</header>
+ <div id="map"></div>
  <div class="search-box">
   ${Input({
     type: 'text',
     class: 'search',
     placeholder: 'Título/Autor', 
     value: '',
-  })
-  }
+  })}
   ${Button({
     type: 'submit',
     class: 'search-btn register-link',
     onclick: test,
     title: 'Pesquisar',
     dataId: 'search-btn', 
-  })
-  }
+  })}
 </div>
 <section class="all-books"></section>
 `
@@ -154,7 +107,7 @@ const iWantButton = (id) => {
       .then(console.log('funfou'))
       
     })
-  .then(alert("livro adicionado á lista de Desejos"))
+  .then(alert("livro adicionado à lista de Desejos"))
 }
 
 const iHaveButton = (id) => {
@@ -180,13 +133,18 @@ const iHaveButton = (id) => {
       .then(console.log('funfou'))
       
     })
-  .then(alert("livro adicionado á Seus Livros "))
+  .then(alert("livro adicionado à Seus Livros "))
 }
 
-setTimeout(initMap, 3000);
+function logOut() {
+  window.auth
+    .signOut()
+    .then(() => {
+      window.location.hash = '#login';
+    });
+}
 
 window.app = {
-  initMap: initMap,
   iHaveButton: iHaveButton,
   iWantButton: iWantButton,
   test: test,

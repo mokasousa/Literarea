@@ -5,6 +5,7 @@ function newUser() {
   const email = document.querySelector('.email-input').value;
   const password = document.querySelector('.password-input').value;
   const name = document.querySelector('.name-input').value;
+  const address = document.querySelector('adress-input').value;
   const errorMessageField = document.getElementById('errorMessageSignup');
   if (email.length > 0 && password.length > 0 && name.length > 0) {
     firebase.auth()
@@ -17,8 +18,8 @@ function newUser() {
             .then(() => {
               firebase.firestore().collection('users').doc(resp.user.uid).set({
                 name,
-                endereco: '',
-                livros: '',
+                address,
+                books: '',
               })
                 .then(() => {
                   window.location = '#login';
@@ -79,14 +80,13 @@ function Signup() {
   ${Button({
     class: 'btn-back',
     id: 'btn-back',
-    onclick: newUser,
+    onclick: () => window.location.hash = '#login',
     title: 'VOLTAR',
   })}
 
   `;
+  
   const template = `
-
-
   <form class="form-content-signup">
   <div class='logo-container'><img class='register-logo' src='/images/logo2.png'/></div>
     <main class="register-input">
