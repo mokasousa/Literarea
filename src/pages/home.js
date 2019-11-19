@@ -8,9 +8,8 @@ const main = document.querySelector('.page')
 let bookUrl = ''
 
 function Home() {
-
-  setTimeout(InitMap, 3000);
-  userProfile();
+setTimeout(InitMap, 3000);
+userProfile();
 
  return main.innerHTML = `
 
@@ -22,7 +21,7 @@ function Home() {
       name: 'sair',
       onClick: signOut,
     })}
-    <p class="signout-text"> Sair </p>
+    <p class="signout-text">Sair</p>
   </div>
  </header>
 
@@ -217,7 +216,7 @@ function userProfile() {
              <p class="book-title">${doc.data().title}</p>
               <p class="book-title">${doc.data().author}</p>
              <button type="button" class="message-btn search-btn register-link"
-               onclick="message()"">Mensagem</button>
+               onclick=app.message()>Mensagem</button>
            </article>
          </section>
         `
@@ -236,7 +235,7 @@ function userProfile() {
                    <p class="book-title">${doc.data().title}</p>
                     <p class="book-title">${doc.data().author}</p>
                    <button type="button" class="message-btn search-btn register-link"
-                     onclick="message()"">Mensagem</button>
+                     onclick=app.message()>Mensagem</button>
                  </article>
                </section>
               `
@@ -257,7 +256,7 @@ function userProfile() {
                          <p class="book-title">${doc.data().title}</p>
                           <p class="book-title">${doc.data().author}</p>
                          <button type="button" class="message-btn search-btn register-link"
-                           onclick="message()"">Mensagem</button>
+                           onclick=app.message()>Mensagem</button>
                        </article>
                      </section>
                     `
