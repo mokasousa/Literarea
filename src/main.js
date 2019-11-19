@@ -7,6 +7,7 @@ function locationHashChanged() {
     if (user) {
       if (window.location.hash === '#home') {
         document.querySelector('main').innerHTML = Home();
+        document.getElementsByTagName('body')[0].className = 'home-bg';
       } else if (window.location.hash === '#login' || window.location.hash === '') {
         document.querySelector('main').innerHTML = Login();
         document.getElementsByTagName('body')[0].className = 'login-bg';

@@ -65,22 +65,25 @@ function Home() {
   .then(res => console.log(res.results[0].geometry.location));
 
  return main.innerHTML = `
- <div id="map"></div>
- ${Input({
-   type: 'text',
-   class: 'search',
-   placeholder: 'Título ou Autor', 
-   value: '',
- })
- }
- ${Button({
-  type: 'submit',
-  class: 'search-btn',
-  onclick: test,
-  title: 'Pesquisar',
-  dataId: 'search-btn', 
- })
-}
+ <header><img src="/images/literarea.png"/> <a href="#login"> Sair </a></header>
+ <div id="map"> oi </div>
+ <div class="search-box">
+  ${Input({
+    type: 'text',
+    class: 'search',
+    placeholder: 'Título/Autor', 
+    value: '',
+  })
+  }
+  ${Button({
+    type: 'submit',
+    class: 'search-btn register-link',
+    onclick: test,
+    title: 'Pesquisar',
+    dataId: 'search-btn', 
+  })
+  }
+</div>
 <section class="all-books"></section>
 `
 }
@@ -110,16 +113,17 @@ const searchInAPI = (bookUrl) => {
         });
 
         booksWithImages.forEach(book => {
-          console.log(book)
             const template =
-             `<div class="book" data-id="${book.id}">
+             `<section class="book-card" data-id="${book.id}">
                 <img src="${book.volumeInfo.imageLinks.thumbnail}"/>
-                <p>${book.volumeInfo.title}</p>
-                <p> ${book.id}</p>
-                <button type="button" class="wish-list" data-id="${book.id}" 
-                  onclick="app.iWantButton(event.target.dataset.id)"> Quero </button>
-                <button type="button" class="wish-list" data-id="${book.id}" 
-                onclick="app.iHaveButton(event.target.dataset.id)"> Tenho </button>
+                <article class="book-info">
+                  <p class="book-title">${book.volumeInfo.title}</p>
+                  <button type="button" class="book-list btn-login" data-id="${book.id}" 
+                    onclick="app.iWantButton(event.target.dataset.id)"> ♡ Quero </button>
+                  <button type="button" class="book-list btn-login" data-id="${book.id}" 
+                  onclick="app.iHaveButton(event.target.dataset.id)"> ✓ Tenho </button>
+                </article>
+              </section>
                 `
             allBooks.innerHTML += template
         })
@@ -150,7 +154,7 @@ const iWantButton = (id) => {
       .then(console.log('funfou'))
       
     })
-  .then(alert("livro adicionado"))
+  .then(alert("livro adicionado á lista de Desejos"))
 }
 
 const iHaveButton = (id) => {
@@ -176,12 +180,13 @@ const iHaveButton = (id) => {
       .then(console.log('funfou'))
       
     })
-  .then(alert("livro adicionado"))
+  .then(alert("livro adicionado á Seus Livros "))
 }
 
 setTimeout(initMap, 3000);
 
 window.app = {
+  initMap: initMap,
   iHaveButton: iHaveButton,
   iWantButton: iWantButton,
   test: test,
