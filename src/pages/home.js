@@ -25,9 +25,13 @@ userProfile();
   </div>
  </header>
 
- <div id="map"></div>
- <section id="profile" class="profile"></section>
- <div class="search-box">
+<section>
+  <p class="title-map"> Usuários com livros disponíveis na sua região </p> 
+  <div id="map"></div>
+</section>
+
+
+  <div class="search-box">
   ${Input({
     type: 'text',
     class: 'search',
@@ -41,10 +45,19 @@ userProfile();
     title: 'Pesquisar',
     dataId: 'search-btn',
   })}
-</div>
-
+  </div>
+  <section id="profile" class="profile">
+    <p class="user-name"> Nome do Usuário </p>
+    <p class="list-title"> ♡ Livros desejados </p>
+    <div class="iwant-books"> </div>
+    <p class="list-title"> ✓ Doando </p>
+    <div class="donation-books"> </div>
+    <p class="list-title"> ✓ Disponíveis para troca </p>
+    <div class="exchange-books"> </div>
+ </section>
 <section class="all-books"></section>
 `
+  
 }
 
 const apiAddress = () => {
@@ -172,9 +185,9 @@ const donationButton = (id) => {
 }
 
 function signOut() {
-    firebase.auth().signOut().then(() => {
-        window.location.hash = '#login';
-    });
+  firebase.auth().signOut().then(() => {
+      window.location.hash = '#login';
+  });
 }
 
 function userProfile() {
@@ -187,7 +200,7 @@ function userProfile() {
     .getUid(firebase.auth().currentUser.email))
     .get()
     .then(function(doc) {
-      document.querySelector('.profile').textContent = "Livros de: " + doc.data().name
+      document.querySelector('.user-name').innerHTML = "Livros de:  " + doc.data().name
     })}
     </p>`
   firebase.firestore()
@@ -202,12 +215,12 @@ function userProfile() {
            <article class="book-info">
              <p class="book-title">${doc.data().title}</p>
               <p class="book-title">${doc.data().author}</p>
-             <button type="button" class="message-btn"
-               onclick="message()"">Mensagem</button>
+             <button type="button" class="message-btn search-btn register-link"
+               onclick=app.message()>Mensagem</button>
            </article>
          </section>
         `
-        document.querySelector('.profile').innerHTML += iWantTemplate;
+        document.querySelector('.iwant-books').innerHTML += iWantTemplate;
 
         firebase.firestore()
         .collection('users')
@@ -221,12 +234,12 @@ function userProfile() {
                  <article class="book-info">
                    <p class="book-title">${doc.data().title}</p>
                     <p class="book-title">${doc.data().author}</p>
-                   <button type="button" class="message-btn"
-                     onclick="message()"">Mensagem</button>
+                   <button type="button" class="message-btn search-btn register-link"
+                     onclick=app.message()>Mensagem</button>
                  </article>
                </section>
               `
-              document.querySelector('.profile').innerHTML += exchangeTemplate;
+              document.querySelector('.exchange-books').innerHTML += exchangeTemplate;
             })
           })
 
@@ -242,12 +255,12 @@ function userProfile() {
                        <article class="book-info">
                          <p class="book-title">${doc.data().title}</p>
                           <p class="book-title">${doc.data().author}</p>
-                         <button type="button" class="message-btn"
-                           onclick="message()"">Mensagem</button>
+                         <button type="button" class="message-btn search-btn register-link"
+                           onclick=app.message()>Mensagem</button>
                        </article>
                      </section>
                     `
-                    document.querySelector('.profile').innerHTML += donationTemplate;
+                    document.querySelector('.donation-books').innerHTML += donationTemplate;
       })
     })
    })
