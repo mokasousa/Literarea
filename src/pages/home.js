@@ -10,7 +10,8 @@ let bookUrl = ''
 function Home() {
 
   setTimeout(InitMap, 3000);
-  getBooks()
+  userProfile();
+
  return main.innerHTML = `
 
  <header>
@@ -25,9 +26,13 @@ function Home() {
   </div>
  </header>
 
- <div id="map"></div>
+<section>
+  <p class="title-map"> Usuários com livros disponíveis na sua região </p> 
+  <div id="map"></div>
+</section>
 
- <div class="search-box">
+
+  <div class="search-box">
   ${Input({
     type: 'text',
     class: 'search',
@@ -41,8 +46,16 @@ function Home() {
     title: 'Pesquisar',
     dataId: 'search-btn',
   })}
-</div>
-
+  </div>
+  <section id="profile" class="profile">
+    <p class="user-name list-title"> Nome do Usuário </p>
+    <p class="list-title"> ♡ Livros desejados </p>
+    <div class="iwant-books"> </div>
+    <p class="list-title"> ✓ Doando </p>
+    <div class="donation-books"> </div>
+    <p class="list-title"> ✓ Disponíveis para troca </p>
+    <div class="exchange-books"> </div>
+ </section>
 <section class="all-books"></section>
 `
   
@@ -169,11 +182,41 @@ const donationButton = (id) => {
 }
 
 function signOut() {
-    firebase.auth().signOut().then(() => {
-        window.location.hash = '#login';
-    });
+  firebase.auth().signOut().then(() => {
+      window.location.hash = '#login';
+  });
 }
 
+function userProfile() {
+  //document.querySelector('.profile').innerHTML="";
+  const actualUser = firebase.auth().currentUser.uid
+  firebase.firestore()
+  .collection('users')
+  .doc(actualUser)
+  .collection('iWant')
+  .onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+      const profileTemplate = `
+      <section class="book-card" data-id="">
+          <img src="${doc.data().photo}"/>
+          <article class="book-info">
+            <p class="book-title">${doc.data().title}</p>
+            <p class="book-title">${doc.data().author}</p>
+            <button type="button" class="search-btn register-link message-btn"
+              onclick=app.message()>Mensagem</button>
+          </article>
+        </section>
+      `
+      document.querySelector('.iwant-books').innerHTML += profileTemplate;
+      document.querySelector('.donation-books').innerHTML += profileTemplate;
+      document.querySelector('.exchange-books').innerHTML += profileTemplate;
+    })
+  })
+}
+
+function message() {
+  alert("Mensagem de interesse enviada")
+}
 
 window.app = {
   exchangeButton: exchangeButton,
@@ -181,7 +224,9 @@ window.app = {
   iWantButton: iWantButton,
   apiAddress: apiAddress,
   searchInAPI: searchInAPI,
-  signOut:signOut
+  signOut:signOut,
+  userProfile: userProfile,
+  message: message,
 }
 
 export default Home;
