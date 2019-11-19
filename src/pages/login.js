@@ -6,7 +6,7 @@ function loginRegisteredUser() {
   const email = document.querySelector('.email-input').value;
   const password = document.querySelector('.password-input').value;
   firebase.auth()
-  .signInWithEmailAndPassword(email, password)
+    .signInWithEmailAndPassword(email, password)
     .then((cred) => {
       if (cred.user) {
         window.location = '#home';
@@ -70,12 +70,6 @@ function Login() {
     onclick: loginRegisteredUser,
     title: 'ENTRAR',
   })}
-  ${Button({
-    id: 'authGoogleButton',
-    class: 'btn-google',
-    onclick: loginGoogleUser,
-    title: `<img src='/images/google-btn.png'>`,
-  })}
   </div>
   `;
   const template = `
@@ -95,3 +89,12 @@ function Login() {
 export default Login;
 
 window.signInWithAccount = signInWithAccount;
+
+
+
+  // ${Button({
+  //   id: 'authGoogleButton',
+  //   class: 'btn-google',
+  //   onclick: loginGoogleUser,
+  //   title: `<img src='/images/google-btn.png'>`,
+  // })}

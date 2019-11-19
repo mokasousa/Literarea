@@ -46,7 +46,7 @@
 .email-input{
     border-bottom: 2px solid #b6b6b6;
     width: 90%;
-    margin: 0% 5% 3% 5%;
+    margin: 0% 0% 3% 5%;
 }
 
 .password{
@@ -58,23 +58,19 @@
 .password-input{
     border-bottom: 2px solid #b6b6b6;
     width: 90%;
-    margin: 0% 0% 5% 5%;
-}
-
-.login-btns{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    margin: 0% 0% 3% 5%;
 }
 
 .btn-login{
+    display: flex;
+    justify-content: center;
     background-color: #F28705;
     color: white;
     font-weight: bold;
     border-radius: 15px;
-    width: 260px;
+    width: 80%;
     height: 32px;
-    margin: auto;
+    margin: 10%
 }
 
 .btn-google{
@@ -83,10 +79,11 @@
 }
 
 .register-call{
+    margin-top: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 80%;
+    font-size: 90%;
 }
 
 .register-link{
@@ -101,7 +98,7 @@
     border-radius: 15px;
     width: 100;
     height: 20px;
-    padding: 2px;
+    padding: 5px;
 }
 
 /*REGISTER*/
@@ -143,16 +140,22 @@
     margin: 0% 5% 3% 5%;
 }
 
-.adress{
+.address{
     color: #591E3A;
     font-weight: bold;
     margin: 3% 5% 2% 5%;
 }
 
-.adress-input{
+.address-input{
     border-bottom: 2px solid #b6b6b6;
     width: 90%;
     margin: 0% 5% 3% 5%;
+}
+
+.register-btns-container{
+    display: flex;
+    justify-content: center;
+    margin: 3%;
 }
 
 .btn-register{
