@@ -13,11 +13,11 @@ function Home() {
   setTimeout(InitMap, 3000);
 
  return main.innerHTML = `
- <header><img src="/images/literarea.png"/> 
+ <header><img src="/images/literarea.png"/>
  ${Button({
   type: 'submit',
   class: 'btn',
-  onclick: logOut,
+  onclick: signOut,
   title: 'Sair',
   })}
 </header>
@@ -26,7 +26,7 @@ function Home() {
   ${Input({
     type: 'text',
     class: 'search',
-    placeholder: 'Título/Autor', 
+    placeholder: 'Título/Autor',
     value: '',
   })}
   ${Button({
@@ -34,7 +34,7 @@ function Home() {
     class: 'search-btn register-link',
     onclick: test,
     title: 'Pesquisar',
-    dataId: 'search-btn', 
+    dataId: 'search-btn',
   })}
 </div>
 <section class="all-books"></section>
@@ -71,9 +71,9 @@ const searchInAPI = (bookUrl) => {
                 <img src="${book.volumeInfo.imageLinks.thumbnail}"/>
                 <article class="book-info">
                   <p class="book-title">${book.volumeInfo.title}</p>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}" 
+                  <button type="button" class="book-list btn-login" data-id="${book.id}"
                     onclick="app.iWantButton(event.target.dataset.id)"> ♡ Quero </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}" 
+                  <button type="button" class="book-list btn-login" data-id="${book.id}"
                   onclick="app.iHaveButton(event.target.dataset.id)"> ✓ Tenho </button>
                 </article>
               </section>
@@ -105,7 +105,7 @@ const iWantButton = (id) => {
       .collection('iWant')
       .add(wishBooks)
       .then(console.log('funfou'))
-      
+
     })
   .then(alert("livro adicionado à lista de Desejos"))
 }
@@ -131,16 +131,14 @@ const iHaveButton = (id) => {
       .collection('iHave')
       .add(myBooks)
       .then(console.log('funfou'))
-      
+
     })
   .then(alert("livro adicionado à Seus Livros "))
 }
 
-function logOut() {
-  window.auth
-    .signOut()
-    .then(() => {
-      window.location.hash = '#login';
+function signOut() {
+    firebase.auth().signOut().then(() => {
+        window.location.hash = '#login';
     });
 }
 
@@ -149,6 +147,7 @@ window.app = {
   iWantButton: iWantButton,
   test: test,
   searchInAPI: searchInAPI,
+  signOut:signOut
 }
 
 export default Home;
