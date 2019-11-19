@@ -74,7 +74,9 @@ const searchInAPI = (bookUrl) => {
                   <button type="button" class="book-list btn-login" data-id="${book.id}"
                     onclick="app.iWantButton(event.target.dataset.id)"> ♡ Quero </button>
                   <button type="button" class="book-list btn-login" data-id="${book.id}"
-                  onclick="app.iHaveButton(event.target.dataset.id)"> ✓ Tenho </button>
+                    onclick="app.exchangeButton(event.target.dataset.id)"> ✓ Tenho p/ Trocar </button>
+                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                    onclick="app.donationButton(event.target.dataset.id)"> ✓ Tenho p/ Doar </button>
                 </article>
               </section>
                 `
@@ -109,8 +111,7 @@ const iWantButton = (id) => {
     })
   .then(alert("livro adicionado à lista de Desejos"))
 }
-
-const iHaveButton = (id) => {
+const exchangeButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
     .then((data) => {
@@ -128,12 +129,38 @@ const iHaveButton = (id) => {
       firebase.firestore()
       .collection('users')
       .doc(actualUser)
-      .collection('iHave')
+      .collection('exchange')
       .add(myBooks)
       .then(console.log('funfou'))
 
     })
-  .then(alert("livro adicionado à Seus Livros "))
+  .then(alert("livro adicionado à Seus Livros para Troca "))
+}
+
+const donationButton = (id) => {
+  fetch(bookAPI+id)
+    .then(data => data.json())
+    .then((data) => {
+      const title = data.items[0].volumeInfo.title;
+      const bookImage = data.items[0].volumeInfo.imageLinks.thumbnail;
+      const author = data.items[0].volumeInfo.authors;
+      const myBooks = {
+        book: id,
+        title: title,
+        photo: bookImage,
+        author: author,
+      }
+
+      const actualUser = firebase.auth().currentUser.uid
+      firebase.firestore()
+      .collection('users')
+      .doc(actualUser)
+      .collection('donation')
+      .add(myBooks)
+      .then(console.log('funfou'))
+
+    })
+  .then(alert("livro adicionado à Seus Livros para Doação "))
 }
 
 function signOut() {
@@ -143,7 +170,8 @@ function signOut() {
 }
 
 window.app = {
-  iHaveButton: iHaveButton,
+  exchangeButton: exchangeButton,
+  donationButton: donationButton,
   iWantButton: iWantButton,
   test: test,
   searchInAPI: searchInAPI,
