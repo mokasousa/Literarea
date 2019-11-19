@@ -1,5 +1,5 @@
-import Button from '../components/button.js';
-import Input from '../components/input.js';
+import Button from '../Components/button.js';
+import Input from '../Components/input.js';
 
 function newUser() {
   const email = document.querySelector('.email-input').value;
@@ -7,17 +7,18 @@ function newUser() {
   const name = document.querySelector('.name-input').value;
   const errorMessageField = document.getElementById('errorMessageSignup');
   if (email.length > 0 && password.length > 0 && name.length > 0) {
-    window.auth
+    firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .then((resp) => {
         if (resp.user) {
-          resp.user.updateProfile({
+            resp.user.updateProfile({
             displayName: name,
           })
             .then(() => {
-              window.db.collection('users').doc(resp.user.uid).set({
+              firebase.firestore().collection('users').doc(resp.user.uid).set({
                 name,
-                biography: 'Fale de você, seus gostos, plantas favoritas, etc.',
+                endereco: '',
+                livros: '',
               })
                 .then(() => {
                   window.location = '#login';
@@ -58,20 +59,27 @@ function Signup() {
     placeholder: 'Senha',
     value: '',
   })}
+  ${Input({
+    type: 'text',
+    class: 'adress-input',
+    placeholder: 'Endereço para troca',
+    value: '',
+  })}
     ${Button({
-    class: 'btn btn-register btn-gray',
+    class: 'btn-register',
     id: 'btn-new-user',
     onclick: newUser,
     title: 'Cadastrar',
   })}
+  
   `;
   const template = `
     <header class="main-header">
-      <h1>Bem vindo(a)!</h1>
+      <img src='/images/logo2.png'/>
     </header>
     <form class="form-content-signup">
         <main class="register-input">
-        <p class="register-text">Para realizar o cadastro, preencha as informações abaixo:</p>
+        <p class="register-text">Faça parte da nossa comunidade de leitores!</p>
         ${userInfo}
         <div id="errorMessageSignup" class="error-message"></div>
       </main>
