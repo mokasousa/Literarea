@@ -70,12 +70,6 @@ function Login() {
     onclick: loginRegisteredUser,
     title: 'ENTRAR',
   })}
-  ${Button({
-    id: 'authGoogleButton',
-    class: 'btn-google',
-    onclick: loginGoogleUser,
-    title: `<img src='/images/google-btn.png'>`,
-  })}
   </div>
   `;
   const template = `
@@ -95,3 +89,10 @@ function Login() {
 export default Login;
 
 window.signInWithAccount = signInWithAccount;
+
+// ${Button({
+//   id: 'authGoogleButton',
+//   class: 'btn-google',
+//   onclick: loginGoogleUser,
+//   title: `<img src='/images/google-btn.png'>`,
+// })}
