@@ -192,7 +192,7 @@
 header{
     display: flex;
     justify-content: space-between;
-    border-bottom: solid 2px #b6b6b6;
+    border-bottom: solid 2px #C4C4C4;
     padding: 7px;
 }
 
@@ -229,7 +229,7 @@ header{
     width: 90vw;
     height: 60vw;
     margin: 5vw;
-    border-bottom: solid 1px #b6b6b6;
+    border-bottom: solid 1px #C4C4C4;
     box-shadow: 2px 2px 3px #b6b6b6a1;
 }
 
@@ -246,6 +246,28 @@ header{
 .book-list{
     width: 30vw;
     margin: 2vw;
+}
+
+.signout-icon{
+    color: #303030;
+    font-size: 25px;
+}
+
+.signout-text{
+    color: #303030;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.header-img{
+    height: 7vw;
+    margin-top: 1.5vw;
+}
+
+footer{
+    display: flex;
+    /* position: fixed; */
+    z-index: 3;
 }
 
 }

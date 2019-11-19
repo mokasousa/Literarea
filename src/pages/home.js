@@ -1,5 +1,10 @@
 import Input from "../Components/input.js";
-import Button from "../Components/button.js"
+import Button from "../Components/button.js";
+import actionIcon from "../Components/action-icon.js";
+
+const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
+const main = document.querySelector('.page')
+let bookUrl = ''
 
 function initMap() {
 
@@ -53,11 +58,6 @@ function initMap() {
   });
 }
 
-const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
-const main = document.querySelector('.page')
-let bookUrl = ''
-
-
 function Home() {
   let location = 'Alameda Santos 2356 Cerqueira Cesar Sao Paulo Brasil';
   fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyAUaI90oFUYGhg6NNi4G8n37ahqzP3laUk")
@@ -65,8 +65,20 @@ function Home() {
   .then(res => console.log(res.results[0].geometry.location));
 
  return main.innerHTML = `
- <header><img src="/images/literarea.png"/> <a href="#login"> Sair </a></header>
- <div id="map"> oi </div>
+ <header>
+  <img src="/images/literarea.png" class="header-img"/>
+  <div>
+    ${actionIcon({
+      class: 'signout-icon fas fa-sign-out-alt',
+      name: 'sair',
+      onClick: logout,
+    })}
+    <p class="signout-text"> Sair </p>
+  </div>
+ </header>
+
+ <div id="map"> mapa </div>
+
  <div class="search-box">
   ${Input({
     type: 'text',
@@ -84,6 +96,7 @@ function Home() {
   })
   }
 </div>
+
 <section class="all-books"></section>
 `
 }
@@ -183,6 +196,9 @@ const iHaveButton = (id) => {
   .then(alert("livro adicionado á Seus Livros "))
 }
 
+const logout = () => {
+  window.location = '#login'
+}
 setTimeout(initMap, 3000);
 
 window.app = {
