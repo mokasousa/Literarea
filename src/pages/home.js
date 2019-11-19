@@ -1,5 +1,6 @@
 import Input from "../Components/input.js";
-import Button from "../Components/button.js"
+import Button from "../Components/button.js";
+import actionIcon from "../Components/action-icon.js";
 import InitMap from "../Components/map.js"
 
 const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
@@ -11,15 +12,21 @@ function Home() {
   setTimeout(InitMap, 3000);
 
  return main.innerHTML = `
- <header><img src="/images/literarea.png"/>
- ${Button({
-  type: 'submit',
-  class: 'btn',
-  onclick: signOut,
-  title: 'Sair',
-  })}
-</header>
+
+ <header>
+  <img src="/images/literarea.png" class="header-img"/>
+  <div>
+    ${actionIcon({
+      class: 'signout-icon fas fa-sign-out-alt',
+      name: 'sair',
+      onClick: signOut,
+    })}
+    <p class="signout-text"> Sair </p>
+  </div>
+ </header>
+
  <div id="map"></div>
+
  <div class="search-box">
   ${Input({
     type: 'text',
@@ -35,6 +42,7 @@ function Home() {
     dataId: 'search-btn',
   })}
 </div>
+
 <section class="all-books"></section>
 `
 }
