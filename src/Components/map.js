@@ -7,14 +7,15 @@ function InitMap() {
     });
 
     const defaultLayers = platform.createDefaultLayers();
-
     const options = {
         zoom: 10,
     };
 
     const map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, options);
+
     const ui = H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
     const mapEvents = new H.mapevents.MapEvents(map);
+
     const iconYellow = new H.map.Icon("/images/pin_amarelo.svg");
     const iconPurple = new H.map.Icon("/images/pin_roxo.svg");
     //Fim do print
@@ -27,25 +28,26 @@ function InitMap() {
         const userMarker = new H.map.Marker(position, { icon: iconYellow });
         userMarker.addEventListener('click', () => console.log('oooo'))
         map.addObject(userMarker);
+        // group.addObject(userMarker);
         return position;
     }
+
     function callback(position) {
         currentPosition(position.coords.latitude, position.coords.longitude);
-
     }
-    //Track user location
+
+    //Track localização atual do usuário
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(callback);
-
     } else {
         console.log("Geolocation is not supported by this browser!");
     }
-
 
     firebase.firestore().collection('users')
         .get()
         .then((querySnapshot) => {
             //Pega os users de acordo com o cadastro -> coloca os pins
+
             const locations = [];
             querySnapshot.forEach((doc) => {
                 const address = doc.data().address;
@@ -87,6 +89,7 @@ function InitMap() {
 
                 // group.addObject(marker);
                 //ForEach acaba aqui
+
 
         }) //Fecha o then
 }
