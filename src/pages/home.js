@@ -48,7 +48,7 @@ function Home() {
   })}
   </div>
   <section id="profile" class="profile">
-    <p class="user-name list-title"> Nome do Usuário </p>
+    <p class="user-name"> Nome do Usuário </p>
     <p class="list-title"> ♡ Livros desejados </p>
     <div class="iwant-books"> </div>
     <p class="list-title"> ✓ Doando </p>
@@ -80,8 +80,8 @@ const searchInAPI = (bookUrl) => {
        let result = containt.items
        let booksWithImages = []
         result.forEach(element => {
-            if(element.volumeInfo.imageLinks !== undefined && 
-                element.volumeInfo.authors !== undefined){
+            if(element.volumeInfo.imageLinks !== undefined &&
+              element.volumeInfo.authors !== undefined){
                 booksWithImages.push(element)
             }
         });
@@ -92,11 +92,11 @@ const searchInAPI = (bookUrl) => {
                 <img src="${book.volumeInfo.imageLinks.thumbnail}"/>
                 <article class="book-info">
                   <p class="book-title">${book.volumeInfo.title}</p>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="iWantButton" class="book-list btn-login" data-id="${book.id}"
                     onclick="app.iWantButton(event.target.dataset.id)"> ♡ Quero </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="exchangeButton"class="book-list btn-login" data-id="${book.id}"
                     onclick="app.exchangeButton(event.target.dataset.id)"> ✓ Tenho p/ Trocar </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="donationButton"class="book-list btn-login" data-id="${book.id}"
                     onclick="app.donationButton(event.target.dataset.id)"> ✓ Tenho p/ Doar </button>
                 </article>
               </section>
@@ -129,6 +129,10 @@ const iWantButton = (id) => {
       .then(alert("livro adicionado à lista de Desejos"))
 
     })
+  .then(alert("livro adicionado à lista de Desejos"))
+  .then(function disableBtn() {
+    document.getElementById("iWantButton").disabled = true;
+  })
 }
 
 const exchangeButton = (id) => {
@@ -190,28 +194,78 @@ function signOut() {
 function userProfile() {
   //document.querySelector('.profile').innerHTML="";
   const actualUser = firebase.auth().currentUser.uid
+  const username = `<p class ="username">
+  ${firebase.firestore()
+    .collection('users')
+    .doc(firebase.auth()
+    .getUid(firebase.auth().currentUser.email))
+    .get()
+    .then(function(doc) {
+      document.querySelector('.user-name').innerHTML = "Livros de:  " + doc.data().name
+    })}
+    </p>`
   firebase.firestore()
   .collection('users')
   .doc(actualUser)
   .collection('iWant')
   .onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-      const profileTemplate = `
-      <section class="book-card" data-id="">
-          <img src="${doc.data().photo}"/>
-          <article class="book-info">
-            <p class="book-title">${doc.data().title}</p>
-            <p class="book-title">${doc.data().author}</p>
-            <button type="button" class="search-btn register-link message-btn"
-              onclick=app.message()>Mensagem</button>
-          </article>
-        </section>
-      `
-      document.querySelector('.iwant-books').innerHTML += profileTemplate;
-      document.querySelector('.donation-books').innerHTML += profileTemplate;
-      document.querySelector('.exchange-books').innerHTML += profileTemplate;
+        const iWantTemplate = `
+        <section class="book-card" data-id="">
+           <img src="${doc.data().photo}"/>
+           <article class="book-info">
+             <p class="book-title">${doc.data().title}</p>
+              <p class="book-title">${doc.data().author}</p>
+             <button type="button" class="message-btn search-btn register-link"
+               onclick="message()"">Mensagem</button>
+           </article>
+         </section>
+        `
+        document.querySelector('.iwant-books').innerHTML += iWantTemplate;
+
+        firebase.firestore()
+        .collection('users')
+        .doc(actualUser)
+        .collection('exchange')
+        .onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const exchangeTemplate = `
+              <section class="book-card" data-id="">
+                 <img src="${doc.data().photo}"/>
+                 <article class="book-info">
+                   <p class="book-title">${doc.data().title}</p>
+                    <p class="book-title">${doc.data().author}</p>
+                   <button type="button" class="message-btn search-btn register-link"
+                     onclick="message()"">Mensagem</button>
+                 </article>
+               </section>
+              `
+              document.querySelector('.exchange-books').innerHTML += exchangeTemplate;
+            })
+          })
+
+              firebase.firestore()
+              .collection('users')
+              .doc(actualUser)
+              .collection('donation')
+              .onSnapshot((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                    const donationTemplate = `
+                    <section class="book-card" data-id="">
+                       <img src="${doc.data().photo}"/>
+                       <article class="book-info">
+                         <p class="book-title">${doc.data().title}</p>
+                          <p class="book-title">${doc.data().author}</p>
+                         <button type="button" class="message-btn search-btn register-link"
+                           onclick="message()"">Mensagem</button>
+                       </article>
+                     </section>
+                    `
+                    document.querySelector('.donation-books').innerHTML += donationTemplate;
+      })
     })
-  })
+   })
+ })
 }
 
 function message() {
