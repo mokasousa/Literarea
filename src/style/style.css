@@ -247,9 +247,14 @@ header{
 }
 
 .book-list{
-    width: 30vw;
+    width: 35vw;
     margin: 2vw;
 }
 
+.book-title{
+    width: 180px;
+    height: 50px;
+    margin-bottom: 5vw;
+}
 }
 

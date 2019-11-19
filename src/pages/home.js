@@ -58,7 +58,8 @@ const searchInAPI = (bookUrl) => {
        let result = containt.items
        let booksWithImages = []
         result.forEach(element => {
-            if(element.volumeInfo.imageLinks !== undefined){
+            if(element.volumeInfo.imageLinks !== undefined && 
+                element.volumeInfo.authors !== undefined){
                 booksWithImages.push(element)
             }
         });
@@ -103,10 +104,9 @@ const iWantButton = (id) => {
       .doc(actualUser)
       .collection('iWant')
       .add(wishBooks)
-      .then(console.log('funfou'))
+      .then(alert("livro adicionado à lista de Desejos"))
 
     })
-  .then(alert("livro adicionado à lista de Desejos"))
 }
 
 const exchangeButton = (id) => {
@@ -129,10 +129,9 @@ const exchangeButton = (id) => {
       .doc(actualUser)
       .collection('exchange')
       .add(myBooks)
-      .then(console.log('funfou'))
+      .then(alert("livro adicionado à Seus Livros para Troca "))
 
     })
-  .then(alert("livro adicionado à Seus Livros para Troca "))
 }
 
 const donationButton = (id) => {
@@ -155,10 +154,9 @@ const donationButton = (id) => {
       .doc(actualUser)
       .collection('donation')
       .add(myBooks)
-      .then(console.log('funfou'))
+      .then(alert("livro adicionado à Seus Livros para Doação "))
 
     })
-  .then(alert("livro adicionado à Seus Livros para Doação "))
 }
 
 function signOut() {
@@ -171,7 +169,7 @@ window.app = {
   exchangeButton: exchangeButton,
   donationButton: donationButton,
   iWantButton: iWantButton,
-  test: test,
+  apiAddress: apiAddress,
   searchInAPI: searchInAPI,
   signOut:signOut
 }
