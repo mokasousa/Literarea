@@ -10,7 +10,7 @@ let bookUrl = ''
 function Home() {
 
   setTimeout(InitMap, 3000);
-
+  getBooks()
  return main.innerHTML = `
 
  <header>
@@ -45,6 +45,7 @@ function Home() {
 
 <section class="all-books"></section>
 `
+  
 }
 
 const apiAddress = () => {
@@ -172,6 +173,7 @@ function signOut() {
         window.location.hash = '#login';
     });
 }
+
 
 window.app = {
   exchangeButton: exchangeButton,
