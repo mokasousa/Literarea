@@ -40,7 +40,7 @@
 .email{
     color: #591E3A;
     font-weight: bold;
-    margin: 3% 5% 5% 5%;
+    margin: 3% 5% 2% 5%;
 }
 
 .email-input{
@@ -52,13 +52,13 @@
 .password{
     color: #591E3A;
     font-weight: bold;
-    margin: 3% 5% 5% 5%;
+    margin: 3% 5% 2% 5%;
 }
 
 .password-input{
     border-bottom: 2px solid #b6b6b6;
     width: 90%;
-    margin: 0% 0% 10% 5%;
+    margin: 0% 0% 5% 5%;
 }
 
 .login-btns{
@@ -99,7 +99,7 @@
     font-weight: bold;
     color: white;
     border-radius: 15px;
-    width: 100px;
+    width: 100;
     height: 20px;
     padding: 2px;
 }
@@ -107,6 +107,145 @@
 /*REGISTER*/
 .signup-bg{
     background-color: #8C2E86;
+}
+
+.form-content-signup{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 5%;
+    height: 530px;
+}
+
+.register-logo{
+    width: 60px;
+    height: 75px;
+    margin: 7% 5% 3% 5%;
+}
+
+.register-text{
+    font-size: 130%;
+    font-weight: bold;
+    margin: 5% 3% 5% 5%;
+}
+
+.name{
+    color: #591E3A;
+    font-weight: bold;
+    margin: 3% 5% 2% 5%;
+}
+
+.name-input{
+    border-bottom: 2px solid #b6b6b6;
+    width: 90%;
+    margin: 0% 5% 3% 5%;
+}
+
+.adress{
+    color: #591E3A;
+    font-weight: bold;
+    margin: 3% 5% 2% 5%;
+}
+
+.adress-input{
+    border-bottom: 2px solid #b6b6b6;
+    width: 90%;
+    margin: 0% 5% 3% 5%;
+}
+
+.btn-register{
+    background-color: #F28705;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 140px;
+    height: 32px;
+    margin: auto;
+}
+
+.btn-back{
+    background-color: #F28705;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 140px;
+    height: 32px;
+    margin: auto;
+}
+
+#errorMessageSignup{
+    font-size: 80%;
+    color: red;
+}
+
+
+/*MAIN*/
+
+.home-bg{
+    display: flex;
+    background-color: #fff;
+    justify-content: center;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 2px #b6b6b6;
+    padding: 7px;
+}
+
+#map{
+    display: flex;
+    border: solid 1px #b6b6b6;
+    width: 100vw;
+    height: 70vw;
+    margin-top: 5vw;
+}
+
+.search-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vw;
+}
+
+.search{
+    width: 60vw;
+    height: 7vw;
+    border: solid 1px #8C2E86;
+    border-radius: 2vw;
+    padding: 5px;
+}
+
+.search-btn{
+    height: 10vw;
+    padding: 2vw;
+}
+
+.book-card{
+    display: flex;
+    flex-direction: row;
+    width: 90vw;
+    height: 60vw;
+    margin: 5vw;
+    border-bottom: solid 1px #b6b6b6;
+    box-shadow: 2px 2px 3px #b6b6b6a1;
+}
+
+.book-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3vw;
+    width: 100%;
+    text-align: center;
+}
+
+.book-list{
+    width: 30vw;
+    margin: 2vw;
 }
 
 }
