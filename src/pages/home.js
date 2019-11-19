@@ -8,9 +8,9 @@ const main = document.querySelector('.page')
 let bookUrl = ''
 
 function Home() {
-
-  setTimeout(InitMap, 3000);
+setTimeout(InitMap, 3000);
 userProfile();
+
  return main.innerHTML = `
 
  <header>
@@ -21,7 +21,7 @@ userProfile();
       name: 'sair',
       onClick: signOut,
     })}
-    <p class="signout-text"> Sair </p>
+    <p class="signout-text">Sair</p>
   </div>
  </header>
 
