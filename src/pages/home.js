@@ -1,26 +1,30 @@
 import Input from "../Components/input.js";
-import Button from "../Components/button.js"
+import Button from "../Components/button.js";
+import actionIcon from "../Components/action-icon.js";
 import InitMap from "../Components/map.js"
-
 
 const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
 const main = document.querySelector('.page')
 let bookUrl = ''
-
 
 function Home() {
 
   setTimeout(InitMap, 3000);
 userProfile();
  return main.innerHTML = `
- <header><img src="/images/literarea.png"/>
- ${Button({
-  type: 'submit',
-  class: 'btn',
-  onclick: signOut,
-  title: 'Sair',
-  })}
-</header>
+
+ <header>
+  <img src="/images/literarea.png" class="header-img"/>
+  <div>
+    ${actionIcon({
+      class: 'signout-icon fas fa-sign-out-alt',
+      name: 'sair',
+      onClick: signOut,
+    })}
+    <p class="signout-text"> Sair </p>
+  </div>
+ </header>
+
  <div id="map"></div>
  <section id="profile" class="profile"></section>
  <div class="search-box">
@@ -33,16 +37,17 @@ userProfile();
   ${Button({
     type: 'submit',
     class: 'search-btn register-link',
-    onclick: test,
+    onclick: apiAddress,
     title: 'Pesquisar',
     dataId: 'search-btn',
   })}
 </div>
+
 <section class="all-books"></section>
 `
 }
 
-const test = () => {
+const apiAddress = () => {
   const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
   const searchBox = document.querySelector('.search').value
     bookUrl = bookAPI + searchBox +'&maxResults=40'
@@ -61,7 +66,8 @@ const searchInAPI = (bookUrl) => {
        let result = containt.items
        let booksWithImages = []
         result.forEach(element => {
-            if(element.volumeInfo.imageLinks !== undefined){
+            if(element.volumeInfo.imageLinks !== undefined && 
+                element.volumeInfo.authors !== undefined){
                 booksWithImages.push(element)
             }
         });
@@ -86,7 +92,6 @@ const searchInAPI = (bookUrl) => {
     })
 }
 
-
 const iWantButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
@@ -107,11 +112,11 @@ const iWantButton = (id) => {
       .doc(actualUser)
       .collection('iWant')
       .add(wishBooks)
-      .then(console.log('funfou'))
+      .then(alert("livro adicionado à lista de Desejos"))
 
     })
-  .then(alert("livro adicionado à lista de Desejos"))
 }
+
 const exchangeButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
@@ -132,10 +137,9 @@ const exchangeButton = (id) => {
       .doc(actualUser)
       .collection('exchange')
       .add(myBooks)
-      .then(console.log('funfou'))
+      .then(alert("livro adicionado à Seus Livros para Troca "))
 
     })
-  .then(alert("livro adicionado à Seus Livros para Troca "))
 }
 
 const donationButton = (id) => {
@@ -158,10 +162,9 @@ const donationButton = (id) => {
       .doc(actualUser)
       .collection('donation')
       .add(myBooks)
-      .then(console.log('funfou'))
+      .then(alert("livro adicionado à Seus Livros para Doação "))
 
     })
-  .then(alert("livro adicionado à Seus Livros para Doação "))
 }
 
 function signOut() {
@@ -205,7 +208,7 @@ window.app = {
   exchangeButton: exchangeButton,
   donationButton: donationButton,
   iWantButton: iWantButton,
-  test: test,
+  apiAddress: apiAddress,
   searchInAPI: searchInAPI,
   signOut:signOut,
   userProfile: userProfile,

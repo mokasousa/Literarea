@@ -3,13 +3,14 @@ import Input from '../Components/input.js';
 
 function newUser() {
   const email = document.querySelector('.email-input').value;
+  console.log(email);
   const password = document.querySelector('.password-input').value;
   const name = document.querySelector('.name-input').value;
   const address = document.querySelector('.address-input').value;
   const errorMessageField = document.getElementById('errorMessageSignup');
   if (email.length > 0 && password.length > 0 && name.length > 0) {
     firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
+    .createUserWithEmailAndPassword(email, password)
       .then((resp) => {
         if (resp.user) {
           resp.user.updateProfile({
