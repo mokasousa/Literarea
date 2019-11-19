@@ -8,8 +8,11 @@ const main = document.querySelector('.page')
 let bookUrl = ''
 
 function Home() {
-setTimeout(InitMap, 3000);
+
+setTimeout(InitMap, 500);
+
 userProfile();
+
 
  return main.innerHTML = `
 
@@ -76,8 +79,8 @@ const searchInAPI = (bookUrl) => {
     fetch(bookUrl)
     .then(data => data.json())
     .then(containt => {
-       let result = containt.items
-       let booksWithImages = []
+       let result = containt.items;
+       let booksWithImages = [];
         result.forEach(element => {
             if(element.volumeInfo.imageLinks !== undefined &&
               element.volumeInfo.authors !== undefined){
