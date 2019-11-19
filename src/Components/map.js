@@ -1,71 +1,89 @@
 function InitMap() {
-    let marker, position;
+    let marker, position, group;
 
     // Print Map
     const platform = new H.service.Platform({
         'apikey': 'nq3453HnDGdLLeabEWsaeCA14GnxNLXlvwzebECKl-U'
-      });
-      
+    });
+
     const defaultLayers = platform.createDefaultLayers();
-      
+
     const options = {
-    zoom: 13,
-    center: { lat: -23.557536, lng: -46.662385 }
+        zoom: 10,
     };
-    
+
     const map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, options);
 
-    // Transform address to pin 
-        //for each address from firebase set searchText
-    const geocodingParams = {
-    searchText: 'Alameda Santos 2356 Cerqueira Cesar Sao Paulo Brasil'
-    };
+    const iconYellow = new H.map.Icon("/images/pin_amarelo.svg");
+    const iconPurple = new H.map.Icon("/images/pin_roxo.svg");
+    //Fim do print
+    function currentPosition(lat, lng) {
+        position = {
+            lat: lat,
+            lng: lng,
+        }
+        map.setCenter(position);
+        const userMarker = new H.map.Marker(position, { icon: iconYellow });
+        map.addObject(userMarker);
+        return position;
+    }
+    function callback(position) {
+        currentPosition(position.coords.latitude, position.coords.longitude);
 
-    const onResult = (result) => {
-        const locations = result.Response.View[0].Result;
-        console.log(locations);
+    }
+    //Track user location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(callback);
 
-        locations.forEach((address) => {
-        
-            position = {
-                lat: address.Location.DisplayPosition.Latitude,
-                lng: address.Location.DisplayPosition.Longitude
-            };
+    } else {
+        console.log("Geolocation is not supported by this browser!");
+    }
 
-            marker = new H.map.Marker(position);
 
-            map.addObject(marker);
-        })
+    firebase.firestore().collection('users')
+        .get()
+        .then((querySnapshot) => {
+//Pega os users de acordo com o cadastro -> coloca os pins
+            querySnapshot.forEach((doc) => {
+                const addressUser = doc.data().address;
+                const nameMarker = doc.data().name;
 
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-
-                position = {
-                    lat: position.coords.Latitude,
-                    lng: position.coords.Longitude
+                // Transform address to pin 
+                const geocodingParams = {
+                    searchText: addressUser
                 };
 
-            });
-            marker = new H.map.Marker(position);
+                const onResult = (result) => {
 
-            map.addObject(marker);
-            
-        } else {
-            console.log("Geolocation is not supported by this browser!");
-        }
-    };
-    
-    const geocoder = platform.getGeocodingService();
-    
-    geocoder.geocode(geocodingParams, onResult, (e) => console.log(e));
-    
-    // marker.addEventListener('click', () => {
-    //     console.log('aceitou!')
-    // });
+                    const locations = result.Response.View[0].Result;
 
+                    locations.forEach((address) => {
+                        position = {
+                            lat: address.Location.DisplayPosition.Latitude,
+                            lng: address.Location.DisplayPosition.Longitude
+                        };
+                    })
+
+                    marker = new H.map.Marker(position, { icon: iconPurple });
+                    // marker.setData(nameMarker);
+                    map.addObject(marker);
+
+
+                };
+
+                // group.addObject(marker);
+
+
+                const geocoder = platform.getGeocodingService();
+                geocoder.geocode(geocodingParams, onResult, (e) => console.log(e));
+            }); //ForEach acaba aqui
+
+        }) //Fecha o then
 }
 
 export default InitMap
+
+
 
 
 // GOOGLE MAPS
