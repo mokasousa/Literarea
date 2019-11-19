@@ -178,17 +178,14 @@ function signOut() {
 }
 
 function userProfile() {
-  //document.querySelector('.profile').innerHTML="";
   const actualUser = firebase.auth().currentUser.uid
-  //console.log(actualUser);
   firebase.firestore()
   .collection('users')
   .doc(actualUser)
   .collection('iWant')
-  .get()
-    .then((querySnapshot) => {
+  .onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        const profileTemplate = `
+        const iWantTemplate = `
         <section class="book-card" data-id="">
            <img src="${doc.data().photo}"/>
            <article class="book-info">
@@ -199,9 +196,51 @@ function userProfile() {
            </article>
          </section>
         `
-        document.querySelector('.profile').innerHTML += profileTemplate;
+        document.querySelector('.profile').innerHTML += iWantTemplate;
+        
+        firebase.firestore()
+        .collection('users')
+        .doc(actualUser)
+        .collection('exchange')
+        .onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const exchangeTemplate = `
+              <section class="book-card" data-id="">
+                 <img src="${doc.data().photo}"/>
+                 <article class="book-info">
+                   <p class="book-title">${doc.data().title}</p>
+                    <p class="book-title">${doc.data().author}</p>
+                   <button type="button" class="message-btn"
+                     onclick="message()"">Mensagem</button>
+                 </article>
+               </section>
+              `   
+              document.querySelector('.profile').innerHTML += exchangeTemplate;
+            })
+          })
+
+              firebase.firestore()
+              .collection('users')
+              .doc(actualUser)
+              .collection('donation')
+              .onSnapshot((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                    const donationTemplate = `
+                    <section class="book-card" data-id="">
+                       <img src="${doc.data().photo}"/>
+                       <article class="book-info">
+                         <p class="book-title">${doc.data().title}</p>
+                          <p class="book-title">${doc.data().author}</p>
+                         <button type="button" class="message-btn"
+                           onclick="message()"">Mensagem</button>
+                       </article>
+                     </section>
+                    `
+                    document.querySelector('.profile').innerHTML += donationTemplate;
       })
     })
+   })
+ }) 
 }
 
 function message() {
