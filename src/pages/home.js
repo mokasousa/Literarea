@@ -17,7 +17,7 @@ function Home() {
  ${Button({
   type: 'submit',
   class: 'btn',
-  onclick: logOut,
+  onclick: signOut,
   title: 'Sair',
   })}
 </header>
@@ -136,14 +136,6 @@ const iHaveButton = (id) => {
   .then(alert("livro adicionado à Seus Livros "))
 }
 
-function logOut() {
-  window.auth
-    .signOut()
-    .then(() => {
-      window.location.hash = '#login';
-    });
-}
-
 function signOut() {
     firebase.auth().signOut().then(() => {
         window.location.hash = '#login';
@@ -155,6 +147,7 @@ window.app = {
   iWantButton: iWantButton,
   test: test,
   searchInAPI: searchInAPI,
+  signOut:signOut
 }
 
 export default Home;
