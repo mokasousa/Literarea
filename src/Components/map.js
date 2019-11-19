@@ -7,13 +7,12 @@ function InitMap() {
     });
 
     const defaultLayers = platform.createDefaultLayers();
-
     const options = {
         zoom: 10,
     };
 
     const map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, options);
-
+    H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
     const iconYellow = new H.map.Icon("/images/pin_amarelo.svg");
     const iconPurple = new H.map.Icon("/images/pin_roxo.svg");
     //Fim do print
@@ -25,30 +24,30 @@ function InitMap() {
         map.setCenter(position);
         const userMarker = new H.map.Marker(position, { icon: iconYellow });
         map.addObject(userMarker);
+        // group.addObject(userMarker);
         return position;
     }
+
     function callback(position) {
         currentPosition(position.coords.latitude, position.coords.longitude);
-
     }
-    //Track user location
+
+    //Track localização atual do usuário
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(callback);
-
     } else {
         console.log("Geolocation is not supported by this browser!");
     }
 
-
     firebase.firestore().collection('users')
         .get()
         .then((querySnapshot) => {
-//Pega os users de acordo com o cadastro -> coloca os pins
+            //Pega os users de acordo com o cadastro -> coloca os pins
             querySnapshot.forEach((doc) => {
                 const addressUser = doc.data().address;
                 const nameMarker = doc.data().name;
 
-                // Transform address to pin 
+                //Transform address to pin 
                 const geocodingParams = {
                     searchText: addressUser
                 };
@@ -65,19 +64,19 @@ function InitMap() {
                     })
 
                     marker = new H.map.Marker(position, { icon: iconPurple });
-                    // marker.setData(nameMarker);
+                    marker.addEventListener('tap', function (event) {
+                        console.log(event.target.getGeometry());
+                    })
+                    //marker.setData(nameMarker);
                     map.addObject(marker);
-
-
+                    // group.addObject(marker);
                 };
-
-                // group.addObject(marker);
-
-
+                
                 const geocoder = platform.getGeocodingService();
                 geocoder.geocode(geocodingParams, onResult, (e) => console.log(e));
             }); //ForEach acaba aqui
-
+            
+            
         }) //Fecha o then
 }
 

@@ -67,7 +67,7 @@ function Signup() {
     ${Input({
     type: 'text',
     class: 'address-input',
-    placeholder: 'Endereço para troca',
+    placeholder:'Endereço para troca',
     value: '',
   })}
   <div class='register-btns-container'>
