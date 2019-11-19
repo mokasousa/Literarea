@@ -178,7 +178,18 @@ function signOut() {
 }
 
 function userProfile() {
+  //document.querySelector('.profile').innerHTML="";
   const actualUser = firebase.auth().currentUser.uid
+  const username = `<p class ="username">
+  ${firebase.firestore()
+    .collection('users')
+    .doc(firebase.auth()
+    .getUid(firebase.auth().currentUser.email))
+    .get()
+    .then(function(doc) {
+      document.querySelector('.profile').textContent = "Livros de: " + doc.data().name
+    })}
+    </p>`
   firebase.firestore()
   .collection('users')
   .doc(actualUser)
@@ -197,7 +208,7 @@ function userProfile() {
          </section>
         `
         document.querySelector('.profile').innerHTML += iWantTemplate;
-        
+
         firebase.firestore()
         .collection('users')
         .doc(actualUser)
@@ -214,7 +225,7 @@ function userProfile() {
                      onclick="message()"">Mensagem</button>
                  </article>
                </section>
-              `   
+              `
               document.querySelector('.profile').innerHTML += exchangeTemplate;
             })
           })
@@ -240,7 +251,7 @@ function userProfile() {
       })
     })
    })
- }) 
+ })
 }
 
 function message() {
