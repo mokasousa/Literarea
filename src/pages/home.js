@@ -2,11 +2,9 @@ import Input from "../Components/input.js";
 import Button from "../Components/button.js"
 import InitMap from "../Components/map.js"
 
-
 const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
 const main = document.querySelector('.page')
 let bookUrl = ''
-
 
 function Home() {
 
@@ -32,7 +30,7 @@ function Home() {
   ${Button({
     type: 'submit',
     class: 'search-btn register-link',
-    onclick: test,
+    onclick: apiAddress,
     title: 'Pesquisar',
     dataId: 'search-btn',
   })}
@@ -41,7 +39,7 @@ function Home() {
 `
 }
 
-const test = () => {
+const apiAddress = () => {
   const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
   const searchBox = document.querySelector('.search').value
     bookUrl = bookAPI + searchBox +'&maxResults=40'
@@ -85,7 +83,6 @@ const searchInAPI = (bookUrl) => {
     })
 }
 
-
 const iWantButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
@@ -111,6 +108,7 @@ const iWantButton = (id) => {
     })
   .then(alert("livro adicionado à lista de Desejos"))
 }
+
 const exchangeButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
