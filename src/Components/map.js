@@ -13,7 +13,8 @@ function InitMap() {
     };
 
     const map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, options);
-
+    const ui = H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
+    const mapEvents = new H.mapevents.MapEvents(map);
     const iconYellow = new H.map.Icon("/images/pin_amarelo.svg");
     const iconPurple = new H.map.Icon("/images/pin_roxo.svg");
     //Fim do print
@@ -24,6 +25,7 @@ function InitMap() {
         }
         map.setCenter(position);
         const userMarker = new H.map.Marker(position, { icon: iconYellow });
+        userMarker.addEventListener('click', () => console.log('oooo'))
         map.addObject(userMarker);
         return position;
     }
@@ -43,40 +45,48 @@ function InitMap() {
     firebase.firestore().collection('users')
         .get()
         .then((querySnapshot) => {
-//Pega os users de acordo com o cadastro -> coloca os pins
+            //Pega os users de acordo com o cadastro -> coloca os pins
+            const locations = [];
             querySnapshot.forEach((doc) => {
-                const addressUser = doc.data().address;
-                const nameMarker = doc.data().name;
+                const address = doc.data().address;
+                const name = doc.data().name;
+                locations.push({ address, name });
+            });
 
-                // Transform address to pin 
-                const geocodingParams = {
-                    searchText: addressUser
-                };
+            locations.forEach((location) => {
+                const geocoder = platform.getGeocodingService();
+                geocoder.geocode({searchText: location.address}, onResult, (e) => console.log(e));
+            });
 
-                const onResult = (result) => {
-
+            function onResult(result) {
+                
+                if (result.Response.View.length !== 0) {
                     const locations = result.Response.View[0].Result;
-
-                    locations.forEach((address) => {
-                        position = {
+                    const postions = locations.map((address) => {
+                        return {
                             lat: address.Location.DisplayPosition.Latitude,
                             lng: address.Location.DisplayPosition.Longitude
-                        };
-                    })
+                        }
+                    });
 
-                    marker = new H.map.Marker(position, { icon: iconPurple });
-                    // marker.setData(nameMarker);
+                    console.log(postions)
+                    const marker = new H.map.Marker(postions[0], { icon: iconPurple });
+                    marker.setData('ananan');
+                    marker.addEventListener('tap', (event) => {
+                        console.log('oioioi');
+                        const bubble = new H.ui.InfoBubble(
+                                event.target.b, { content: event.target.getData() })
+                                ui.addBubble(bubble)
+                        }, )
                     map.addObject(marker);
+                    // console.log(map)
+                        // // marker.setData(nameMarker);
 
-
-                };
+                }
+            }
 
                 // group.addObject(marker);
-
-
-                const geocoder = platform.getGeocodingService();
-                geocoder.geocode(geocodingParams, onResult, (e) => console.log(e));
-            }); //ForEach acaba aqui
+                //ForEach acaba aqui
 
         }) //Fecha o then
 }
