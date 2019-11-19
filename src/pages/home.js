@@ -10,7 +10,7 @@ let bookUrl = ''
 function Home() {
 
   setTimeout(InitMap, 3000);
-
+userProfile();
  return main.innerHTML = `
 
  <header>
@@ -26,7 +26,7 @@ function Home() {
  </header>
 
  <div id="map"></div>
-
+ <section id="profile" class="profile"></section>
  <div class="search-box">
   ${Input({
     type: 'text',
@@ -173,13 +173,46 @@ function signOut() {
     });
 }
 
+function userProfile() {
+  //document.querySelector('.profile').innerHTML="";
+  const actualUser = firebase.auth().currentUser.uid
+  //console.log(actualUser);
+  firebase.firestore()
+  .collection('users')
+  .doc(actualUser)
+  .collection('iWant')
+  .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const profileTemplate = `
+        <section class="book-card" data-id="">
+           <img src="${doc.data().photo}"/>
+           <article class="book-info">
+             <p class="book-title">${doc.data().title}</p>
+              <p class="book-title">${doc.data().author}</p>
+             <button type="button" class="message-btn"
+               onclick="message()"">Mensagem</button>
+           </article>
+         </section>
+        `
+        document.querySelector('.profile').innerHTML += profileTemplate;
+      })
+    })
+}
+
+function message() {
+  alert("Mensagem de interesse enviada")
+}
+
 window.app = {
   exchangeButton: exchangeButton,
   donationButton: donationButton,
   iWantButton: iWantButton,
   apiAddress: apiAddress,
   searchInAPI: searchInAPI,
-  signOut:signOut
+  signOut:signOut,
+  userProfile: userProfile,
+  message: message,
 }
 
 export default Home;
