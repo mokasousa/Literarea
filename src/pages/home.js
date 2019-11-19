@@ -60,7 +60,8 @@ const searchInAPI = (bookUrl) => {
        let result = containt.items
        let booksWithImages = []
         result.forEach(element => {
-            if(element.volumeInfo.imageLinks !== undefined){
+            if(element.volumeInfo.imageLinks !== undefined &&
+              element.volumeInfo.authors !== undefined){
                 booksWithImages.push(element)
             }
         });
@@ -71,11 +72,11 @@ const searchInAPI = (bookUrl) => {
                 <img src="${book.volumeInfo.imageLinks.thumbnail}"/>
                 <article class="book-info">
                   <p class="book-title">${book.volumeInfo.title}</p>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="iWantButton" class="book-list btn-login" data-id="${book.id}"
                     onclick="app.iWantButton(event.target.dataset.id)"> ♡ Quero </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="exchangeButton"class="book-list btn-login" data-id="${book.id}"
                     onclick="app.exchangeButton(event.target.dataset.id)"> ✓ Tenho p/ Trocar </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="donationButton"class="book-list btn-login" data-id="${book.id}"
                     onclick="app.donationButton(event.target.dataset.id)"> ✓ Tenho p/ Doar </button>
                 </article>
               </section>
@@ -110,7 +111,11 @@ const iWantButton = (id) => {
 
     })
   .then(alert("livro adicionado à lista de Desejos"))
+  .then(function disableBtn() {
+    document.getElementById("iWantButton").disabled = true;
+  })
 }
+
 const exchangeButton = (id) => {
   fetch(bookAPI+id)
     .then(data => data.json())
