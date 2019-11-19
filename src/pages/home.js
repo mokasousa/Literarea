@@ -8,9 +8,8 @@ const main = document.querySelector('.page')
 let bookUrl = ''
 
 function Home() {
-
 setTimeout(InitMap, 3000);
-
+userProfile();
 
  return main.innerHTML = `
 
@@ -27,7 +26,7 @@ setTimeout(InitMap, 3000);
  </header>
 
  <div id="map"></div>
-
+ <section id="profile" class="profile"></section>
  <div class="search-box">
   ${Input({
     type: 'text',
@@ -67,8 +66,8 @@ const searchInAPI = (bookUrl) => {
        let result = containt.items
        let booksWithImages = []
         result.forEach(element => {
-            if(element.volumeInfo.imageLinks !== undefined && 
-                element.volumeInfo.authors !== undefined){
+            if(element.volumeInfo.imageLinks !== undefined &&
+              element.volumeInfo.authors !== undefined){
                 booksWithImages.push(element)
             }
         });
@@ -79,11 +78,11 @@ const searchInAPI = (bookUrl) => {
                 <img src="${book.volumeInfo.imageLinks.thumbnail}"/>
                 <article class="book-info">
                   <p class="book-title">${book.volumeInfo.title}</p>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="iWantButton" class="book-list btn-login" data-id="${book.id}"
                     onclick="app.iWantButton(event.target.dataset.id)"> ♡ Quero </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="exchangeButton"class="book-list btn-login" data-id="${book.id}"
                     onclick="app.exchangeButton(event.target.dataset.id)"> ✓ Tenho p/ Trocar </button>
-                  <button type="button" class="book-list btn-login" data-id="${book.id}"
+                  <button type="button" id="donationButton"class="book-list btn-login" data-id="${book.id}"
                     onclick="app.donationButton(event.target.dataset.id)"> ✓ Tenho p/ Doar </button>
                 </article>
               </section>
@@ -116,6 +115,10 @@ const iWantButton = (id) => {
       .then(alert("livro adicionado à lista de Desejos"))
 
     })
+  .then(alert("livro adicionado à lista de Desejos"))
+  .then(function disableBtn() {
+    document.getElementById("iWantButton").disabled = true;
+  })
 }
 
 const exchangeButton = (id) => {
@@ -174,13 +177,96 @@ function signOut() {
     });
 }
 
+function userProfile() {
+  //document.querySelector('.profile').innerHTML="";
+  const actualUser = firebase.auth().currentUser.uid
+  const username = `<p class ="username">
+  ${firebase.firestore()
+    .collection('users')
+    .doc(firebase.auth()
+    .getUid(firebase.auth().currentUser.email))
+    .get()
+    .then(function(doc) {
+      document.querySelector('.profile').textContent = "Livros de: " + doc.data().name
+    })}
+    </p>`
+  firebase.firestore()
+  .collection('users')
+  .doc(actualUser)
+  .collection('iWant')
+  .onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const iWantTemplate = `
+        <section class="book-card" data-id="">
+           <img src="${doc.data().photo}"/>
+           <article class="book-info">
+             <p class="book-title">${doc.data().title}</p>
+              <p class="book-title">${doc.data().author}</p>
+             <button type="button" class="message-btn"
+               onclick="message()"">Mensagem</button>
+           </article>
+         </section>
+        `
+        document.querySelector('.profile').innerHTML += iWantTemplate;
+
+        firebase.firestore()
+        .collection('users')
+        .doc(actualUser)
+        .collection('exchange')
+        .onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const exchangeTemplate = `
+              <section class="book-card" data-id="">
+                 <img src="${doc.data().photo}"/>
+                 <article class="book-info">
+                   <p class="book-title">${doc.data().title}</p>
+                    <p class="book-title">${doc.data().author}</p>
+                   <button type="button" class="message-btn"
+                     onclick="message()"">Mensagem</button>
+                 </article>
+               </section>
+              `
+              document.querySelector('.profile').innerHTML += exchangeTemplate;
+            })
+          })
+
+              firebase.firestore()
+              .collection('users')
+              .doc(actualUser)
+              .collection('donation')
+              .onSnapshot((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                    const donationTemplate = `
+                    <section class="book-card" data-id="">
+                       <img src="${doc.data().photo}"/>
+                       <article class="book-info">
+                         <p class="book-title">${doc.data().title}</p>
+                          <p class="book-title">${doc.data().author}</p>
+                         <button type="button" class="message-btn"
+                           onclick="message()"">Mensagem</button>
+                       </article>
+                     </section>
+                    `
+                    document.querySelector('.profile').innerHTML += donationTemplate;
+      })
+    })
+   })
+ })
+}
+
+function message() {
+  alert("Mensagem de interesse enviada")
+}
+
 window.app = {
   exchangeButton: exchangeButton,
   donationButton: donationButton,
   iWantButton: iWantButton,
   apiAddress: apiAddress,
   searchInAPI: searchInAPI,
-  signOut:signOut
+  signOut:signOut,
+  userProfile: userProfile,
+  message: message,
 }
 
 export default Home;
