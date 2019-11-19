@@ -166,6 +166,7 @@
     width: 140px;
     height: 32px;
     margin: auto;
+    margin-top: 2vw;
 }
 
 .btn-back{
@@ -247,7 +248,7 @@ header{
 }
 
 .book-list{
-    width: 30vw;
+    width: 37vw;
     margin: 2vw;
 }
 
@@ -267,10 +268,11 @@ header{
     margin-top: 1.5vw;
 }
 
-footer{
-    display: flex;
-    /* position: fixed; */
-    z-index: 3;
+.book-title{
+    width: 37vw;
+    height: 22vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 }
