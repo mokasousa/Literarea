@@ -76,19 +76,19 @@ function Signup() {
     value: '',
   })}
   <div class='register-btns-container'>
-    ${Button({
-    class: 'btn-register',
-    id: 'btn-new-user',
-    onclick: newUser,
-    title: 'CADASTRAR',
-  })}
   ${Button({
     class: 'btn-back',
     id: 'btn-back',
     onclick: () => window.location.hash = '#login',
     title: 'VOLTAR',
   })}
-  </div>
+    ${Button({
+    class: 'btn-register',
+    id: 'btn-new-user',
+    onclick: newUser,
+    title: 'CADASTRAR',
+  })}
+   </div>
 `;
   
   const template = `
