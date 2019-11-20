@@ -11,7 +11,7 @@ function Home() {
 
 setTimeout(InitMap, 500);
 
-userProfile();
+userProfile(firebase.auth().currentUser.uid);
 
 
  return main.innerHTML = `
@@ -193,14 +193,13 @@ function signOut() {
   });
 }
 
-function userProfile() {
+function userProfile(actualUser) {
   //document.querySelector('.profile').innerHTML="";
-  const actualUser = firebase.auth().currentUser.uid
+  //const actualUser = firebase.auth().currentUser.uid
   const username = `<p class ="username">
   ${firebase.firestore()
     .collection('users')
-    .doc(firebase.auth()
-    .getUid(firebase.auth().currentUser.email))
+    .doc(actualUser)
     .get()
     .then(function(doc) {
       document.querySelector('.user-name').innerHTML = "Livros de:  " + doc.data().name
@@ -211,6 +210,7 @@ function userProfile() {
   .doc(actualUser)
   .collection('iWant')
   .onSnapshot((querySnapshot) => {
+    if (querySnapshot.size > 0) {
       querySnapshot.forEach((doc) => {
         const iWantTemplate = `
         <section class="book-card" data-id="">
@@ -223,13 +223,15 @@ function userProfile() {
            </article>
          </section>
         `
-        document.querySelector('.iwant-books').innerHTML += iWantTemplate;
+        document.querySelector('.iwant-books').innerHTML = iWantTemplate;
+      
 
         firebase.firestore()
         .collection('users')
         .doc(actualUser)
         .collection('exchange')
         .onSnapshot((querySnapshot) => {
+          if (querySnapshot.size > 0) {
             querySnapshot.forEach((doc) => {
               const exchangeTemplate = `
               <section class="book-card" data-id="">
@@ -242,8 +244,11 @@ function userProfile() {
                  </article>
                </section>
               `
-              document.querySelector('.exchange-books').innerHTML += exchangeTemplate;
+              document.querySelector('.exchange-books').innerHTML = exchangeTemplate;
             })
+           } else {
+            document.querySelector('.exchange-books').innerHTML = "Ainda não há livros na lista de dispoíveis para troca";
+           }
           })
 
               firebase.firestore()
@@ -251,6 +256,7 @@ function userProfile() {
               .doc(actualUser)
               .collection('donation')
               .onSnapshot((querySnapshot) => {
+                if (querySnapshot.size > 0) {
                   querySnapshot.forEach((doc) => {
                     const donationTemplate = `
                     <section class="book-card" data-id="">
@@ -263,10 +269,16 @@ function userProfile() {
                        </article>
                      </section>
                     `
-                    document.querySelector('.donation-books').innerHTML += donationTemplate;
+                    document.querySelector('.donation-books').innerHTML = donationTemplate;
       })
+     } else {
+      document.querySelector('.donation-books').innerHTML = "Ainda não há livros na lista de doando"
+     }
     })
    })
+  } else {
+    document.querySelector('.iwant-books').innerHTML = "Ainda não há livros na lista de desejados";
+  }
  })
 }
 

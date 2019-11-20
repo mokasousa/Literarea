@@ -5,6 +5,7 @@ import Home from './pages/home.js';
 function locationHashChanged() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      console.log("logado");
       if (window.location.hash === '#home') {
         document.querySelector('main').innerHTML = Home();
         document.getElementsByTagName('body')[0].className = 'home-bg';
@@ -17,6 +18,7 @@ function locationHashChanged() {
       } 
       
     } else if (!user) {
+      console.log("deslogado");
       if (window.location.hash === '#login' || window.location.hash === '') {
         document.querySelector('main').innerHTML = Login();
         document.getElementsByTagName('body')[0].className = 'login-bg';
