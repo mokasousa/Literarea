@@ -38,6 +38,8 @@ function newUser() {
           errorMessageField.textContent = 'Email inválido.';
         } else if (errorCode === 'auth/weak-password') {
           errorMessageField.textContent = 'A senha deve conter 6 caracteres ou mais.';
+        } else if (errorCode === 'auth/email-already-in-use'){
+          errorMessageField.textContent = 'E-mail já cadastrado.';
         }
       });
   } else {
@@ -90,7 +92,7 @@ function Signup() {
   })}
    </div>
 `;
-  
+
   const template = `
   <form class="form-content-signup">
   <div class='logo-container'><img class='register-logo' src='/images/logo2.png'/></div>
