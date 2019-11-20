@@ -32,12 +32,10 @@ function InitMap() {
             lat: lat,
             lng: lng,
         }
-        console.log(position);
         map.setCenter(position);
         let userMarker = new H.map.Marker(position, { icon: iconYellow });
         userMarker.setData(user);
         userMarker.addEventListener('tap', (event) => {
-            console.log('amarelo');
             const loggedUser = event.target.getData();
             window.app.userProfile(loggedUser);
             // const bubble = new H.ui.InfoBubble(event.target.b, { content: event.target.getData() })
@@ -86,7 +84,6 @@ function InitMap() {
                         let marker = new H.map.Marker(position, { icon: iconPurple });
                         marker.setData(id);
                         marker.addEventListener('tap', (event) => {
-                            console.log('roxo');
                             const otherUsers = event.target.getData();
                             window.app.userProfile(otherUsers);
                             // const bubble = new H.ui.InfoBubble(
