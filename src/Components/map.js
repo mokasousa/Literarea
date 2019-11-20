@@ -8,7 +8,7 @@ function InitMap() {
 
     const defaultLayers = platform.createDefaultLayers();
     const options = {
-        zoom: 10,
+        zoom: 11,
         center: { lat: -23.557536, lng: -46.662385 },
         pixelRatio: window.devicePixelRatio || 1
     };
@@ -32,15 +32,16 @@ function InitMap() {
             lat: lat,
             lng: lng,
         }
+        console.log(position);
         map.setCenter(position);
         let userMarker = new H.map.Marker(position, { icon: iconYellow });
         userMarker.setData(user);
         userMarker.addEventListener('tap', (event) => {
             console.log('amarelo');
-            const userzinho = event.target.getData();
-            window.app.userProfile(userzinho);
-            const bubble = new H.ui.InfoBubble(event.target.b, { content: event.target.getData() })
-            ui.addBubble(bubble)
+            const loggedUser = event.target.getData();
+            window.app.userProfile(loggedUser);
+            // const bubble = new H.ui.InfoBubble(event.target.b, { content: event.target.getData() })
+            // ui.addBubble(bubble)
         }, )
 
         map.addObject(userMarker);
@@ -77,54 +78,26 @@ function InitMap() {
                         searchtext: address
                     },
                     success => {
-                        console.log(success.Response.View[0].Result[0].Location.DisplayPosition);
                         let coordUser = success.Response.View[0].Result[0].Location.DisplayPosition;
-                        let marker = new H.map.Marker(coordUser, { icon: iconPurple });
+                        let position = {
+                            lat: coordUser.Latitude,
+                            lng: coordUser.Longitude,
+                        }
+                        let marker = new H.map.Marker(position, { icon: iconPurple });
                         marker.setData(id);
                         marker.addEventListener('tap', (event) => {
-                            console.log('oioioi');
-                            console.log(event.target.getData());
-                            const bubble = new H.ui.InfoBubble(
-                                event.target.b, { content: event.target.getData() })
-                                ui.addBubble(bubble)
+                            console.log('roxo');
+                            const otherUsers = event.target.getData();
+                            window.app.userProfile(otherUsers);
+                            // const bubble = new H.ui.InfoBubble(
+                            //     event.target.b, { content: event.target.getData() })
+                            //     ui.addBubble(bubble)
                         }, )
                         map.addObject(marker);
                     },
                     error => console.error(error)
                 );
             });
-
-            
-
-            // locations.forEach((location) => {
-            //     let geo = geocoder.geocode({searchText: location.address}, onResult, (e) => console.log(e));
-            //     console.log(geo.b);
-            // });
-
-            // function onResult(result) {
-                
-            //     if (result.Response.View.length !== 0) {
-            //         const locationss = result.Response.View[0].Result;
-            //         console.log(locationss);
-            //         const coordsUsers =  {
-            //             lat: locationss[0].Location.DisplayPosition.Latitude,
-            //             lng: locationss[0].Location.DisplayPosition.Longitude
-            //         };
-
-            //         return coordsUsers
-            //         const marker = new H.map.Marker(coordsUsers, { icon: iconPurple });
-            //         marker.setData('ananan');
-            //         marker.addEventListener('tap', (event) => {
-            //             console.log('oioioi');
-            //             const bubble = new H.ui.InfoBubble(
-            //                     event.target.b, { content: event.target.getData() })
-            //                     ui.addBubble(bubble)
-            //             }, )
-            //         map.addObject(marker);
-
-            //     }
-            // }//ForEach acaba aqui
-
         }) //Fecha o then
 }
 
