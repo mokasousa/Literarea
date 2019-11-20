@@ -196,14 +196,24 @@
 header{
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    width: 97vw;
     border-bottom: solid 2px #C4C4C4;
-    padding: 7px;
+    padding: 4px;
+    background-color: #fff;
+    z-index: 3;
+}
+
+.map-container{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
 }
 
 #map{
     display: flex;
     border: solid 1px #b6b6b6;
-    width: 100vw;
+    width: 90vw;
     height: 70vw;
     margin-top: 2vw;
 }
@@ -299,6 +309,10 @@ header{
     padding: 2vw;
     color: #591E3A;
     font-weight: bold;
+}
+
+.container-map{
+    margin-top:12vw;
 }
 
 }

@@ -25,9 +25,11 @@ userProfile();
   </div>
  </header>
 
-<section>
+<section class="container-map">
   <p class="title-map"> Usuários com livros disponíveis na sua região </p> 
-  <div id="map"></div>
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
 </section>
 
 
@@ -56,6 +58,7 @@ userProfile();
     <div class="exchange-books"> </div>
  </section>
 <section class="all-books"></section>
+<footer> pé </footer>
 `
   
 }
