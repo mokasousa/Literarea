@@ -291,7 +291,12 @@ function userProfile(actualUser) {
    })
   } else {
     document.querySelector('.iwant-books')
-    .innerHTML = `<p class="list-title empty-list"> Ainda não há livros na lista de desejados </p>`;
+      .innerHTML = `<p class="list-title empty-list"> Ainda não há livros na lista de desejados </p>`;
+    document.querySelector('.donation-books')
+      .innerHTML = `<p class="list-title empty-list"> Ainda não há livros na lista de doando </p>`;
+    document.querySelector('.exchange-books')
+      .innerHTML = `<p class="list-title empty-list"> 
+       Ainda não há livros na lista de disponíveis para troca </p>`
   }
  })
 }
