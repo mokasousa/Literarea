@@ -29,7 +29,7 @@ userProfile(firebase.auth().currentUser.uid);
  </header>
 
 <section>
-  <p class="title-map"> Usuários com livros disponíveis na sua região </p> 
+  <p class="title-map"> Usuários com livros disponíveis na sua região </p>
   <div id="map"></div>
 </section>
 
@@ -58,23 +58,27 @@ userProfile(firebase.auth().currentUser.uid);
     <p class="list-title"> ✓ Disponíveis para troca </p>
     <div class="exchange-books"> </div>
  </section>
+<p class="searchResults list-title"> </p>
 <section class="all-books"></section>
 `
-  
+
 }
 
 const apiAddress = () => {
   const bookAPI = 'https://www.googleapis.com/books/v1/volumes?q='
   const searchBox = document.querySelector('.search').value
+
     bookUrl = bookAPI + searchBox +'&maxResults=40'
     app.searchInAPI(bookUrl)
 }
 
 const searchInAPI = (bookUrl) => {
+  document.querySelector('.searchResults').innerHTML = "Resultados da pesquisa";
   const searchBox = document.querySelector('.search');
   const allBooks = document.querySelector('.all-books');
     searchBox.value = ""
     allBooks.innerHTML= ""
+
 
     fetch(bookUrl)
     .then(data => data.json())
@@ -224,7 +228,7 @@ function userProfile(actualUser) {
          </section>
         `
         document.querySelector('.iwant-books').innerHTML = iWantTemplate;
-      
+
 
         firebase.firestore()
         .collection('users')
