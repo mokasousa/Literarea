@@ -8,7 +8,11 @@ function newUser() {
   const name = document.querySelector('.name-input').value;
   const address = document.querySelector('.address-input').value;
   const errorMessageField = document.getElementById('errorMessageSignup');
-  if (email.length > 0 && password.length > 0 && name.length > 0) {
+
+
+  if (email.length > 0 && password.length > 0 && name.length > 0 && address.length > 0) {
+
+    // const geocoder = platform.getGeocodingService();
     firebase.auth()
     .createUserWithEmailAndPassword(email, password)
       .then((resp) => {
@@ -18,11 +22,12 @@ function newUser() {
           })
             .then(() => {
               firebase.firestore().collection('users').doc(resp.user.uid).set({
+                id: resp.user.uid,
                 name,
                 address,
               })
                 .then(() => {
-                  window.location = '#login';
+                  window.location.hash = '#home';
                 });
             });
         }

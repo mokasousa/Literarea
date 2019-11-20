@@ -1,5 +1,5 @@
 function InitMap() {
-    let marker, position, group;
+    
 
     // Print Map
     const platform = new H.service.Platform({
@@ -8,25 +8,44 @@ function InitMap() {
 
     const defaultLayers = platform.createDefaultLayers();
     const options = {
-        zoom: 10,
+        zoom: 11,
+        center: { lat: -23.557536, lng: -46.662385 },
+        pixelRatio: window.devicePixelRatio || 1
     };
 
     const map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, options);
-    H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
+
+    window.addEventListener('resize', () => map.getViewPort().resize());
+
+    const ui = H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
+    const mapEvents = new H.mapevents.MapEvents(map);
+    const behavior = new H.mapevents.Behavior(mapEvents);
+
     const iconYellow = new H.map.Icon("/images/pin_amarelo.svg");
     const iconPurple = new H.map.Icon("/images/pin_roxo.svg");
     //Fim do print
+
+    const user = firebase.auth().currentUser.uid;
+
     function currentPosition(lat, lng) {
-        position = {
+        let position = {
             lat: lat,
             lng: lng,
         }
         map.setCenter(position);
-        const userMarker = new H.map.Marker(position, { icon: iconYellow });
+        let userMarker = new H.map.Marker(position, { icon: iconYellow });
+        userMarker.setData(user);
+        userMarker.addEventListener('tap', (event) => {
+            const loggedUser = event.target.getData();
+            window.app.userProfile(loggedUser);
+            // const bubble = new H.ui.InfoBubble(event.target.b, { content: event.target.getData() })
+            // ui.addBubble(bubble)
+        }, )
+
         map.addObject(userMarker);
-        // group.addObject(userMarker);
-        return position;
+        //return position;
     }
+
 
     function callback(position) {
         currentPosition(position.coords.latitude, position.coords.longitude);
@@ -43,40 +62,39 @@ function InitMap() {
         .get()
         .then((querySnapshot) => {
             //Pega os users de acordo com o cadastro -> coloca os pins
+
+            //const locations = [];
             querySnapshot.forEach((doc) => {
-                const addressUser = doc.data().address;
-                const nameMarker = doc.data().name;
+                const address = doc.data().address;
+                const id = doc.data().id;
+                //locations.push({ address, name });
 
-                //Transform address to pin 
-                const geocodingParams = {
-                    searchText: addressUser
-                };
-
-                const onResult = (result) => {
-
-                    const locations = result.Response.View[0].Result;
-
-                    locations.forEach((address) => {
-                        position = {
-                            lat: address.Location.DisplayPosition.Latitude,
-                            lng: address.Location.DisplayPosition.Longitude
-                        };
-                    })
-
-                    marker = new H.map.Marker(position, { icon: iconPurple });
-                    marker.addEventListener('tap', function (event) {
-                        console.log(event.target.getGeometry());
-                    })
-                    //marker.setData(nameMarker);
-                    map.addObject(marker);
-                    // group.addObject(marker);
-                };
-                
                 const geocoder = platform.getGeocodingService();
-                geocoder.geocode(geocodingParams, onResult, (e) => console.log(e));
-            }); //ForEach acaba aqui
-            
-            
+                
+                geocoder.geocode(
+                    {
+                        searchtext: address
+                    },
+                    success => {
+                        let coordUser = success.Response.View[0].Result[0].Location.DisplayPosition;
+                        let position = {
+                            lat: coordUser.Latitude,
+                            lng: coordUser.Longitude,
+                        }
+                        let marker = new H.map.Marker(position, { icon: iconPurple });
+                        marker.setData(id);
+                        marker.addEventListener('tap', (event) => {
+                            const otherUsers = event.target.getData();
+                            window.app.userProfile(otherUsers);
+                            // const bubble = new H.ui.InfoBubble(
+                            //     event.target.b, { content: event.target.getData() })
+                            //     ui.addBubble(bubble)
+                        }, )
+                        map.addObject(marker);
+                    },
+                    error => console.error(error)
+                );
+            });
         }) //Fecha o then
 }
 

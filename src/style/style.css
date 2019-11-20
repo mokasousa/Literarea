@@ -309,10 +309,15 @@ header{
     padding: 2vw;
     color: #591E3A;
     font-weight: bold;
+    margin-top: 15vw;
 }
 
-.container-map{
-    margin-top:12vw;
+.empty-list{
+    font-weight: normal;
+    color: #8a8585;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    width: 85vw;
 }
 
 }
