@@ -11,7 +11,7 @@ function Home() {
 
 setTimeout(InitMap, 500);
 
-userProfile();
+userProfile(firebase.auth().currentUser.uid);
 
 
  return main.innerHTML = `
@@ -193,9 +193,9 @@ function signOut() {
   });
 }
 
-function userProfile() {
+function userProfile(actualUser) {
   //document.querySelector('.profile').innerHTML="";
-  const actualUser = firebase.auth().currentUser.uid
+  //const actualUser = firebase.auth().currentUser.uid
   const username = `<p class ="username">
   ${firebase.firestore()
     .collection('users')
