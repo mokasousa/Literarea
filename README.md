@@ -1,8 +1,8 @@
 # Literárea
 
-![Login](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-login.png | width=100)
-![Mapa e Busca por Título](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-livro-busca.png | width=100)
-![Livros do usuário](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-usuario-marcador.png | width=100)
+![Login](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-login.png)
+![Mapa e Busca por Título](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-livro-busca.png)
+![Livros do usuário](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-usuario-marcador.png)
 
 ## O projeto
 
