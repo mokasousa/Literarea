@@ -34,7 +34,7 @@ Para adicionar essas funcionalidades ao aplicativo utilizamos:
 
 * [Firebase Realtime Database](https://firebase.google.com/docs/database/?gclid=CjwKCAiA66_xBRBhEiwAhrMuLUnf6KO8JoEFEdsrB3I8AfUqviJw4flXFgJx7FF-i4x9L4_AqMxiChoC-dkQAvD_BwE) como banco de dados para guardar as listas de livros e localizações correspondentes de cada usuário;
 * [Google Books API](https://developers.google.com/books) para facilitar a busca, visualização e adição dos títulos às listas de livros;
-* Here API(https://developer.here.com/) para inserir o mapa e exibir os marcadores dos usuários cadastrados. 
+* [Here API](https://developer.here.com/) para inserir o mapa e exibir os marcadores dos usuários cadastrados. 
 
 ## Considerações finais
 
@@ -45,5 +45,5 @@ Esse projeto foi desenvolvido como parte do currículo do [Bootcamp da Laborató
 * [Claudia Saito](https://github.com/claudiakemi)
 * [Elaine Shimabukuro](https://github.com/elaineshimabukuro)
 * [Jackeline Mattar](https://github.com/jackmattar)
-* [Mônica Sousa](https://github.com/mokasousa)
+* Mônica Sousa
 
