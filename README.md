@@ -1,5 +1,9 @@
 # Literárea
 
+![Login](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-login.png | width=100)
+![Mapa e Busca por Título](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-livro-busca.png | width=100)
+![Livros do usuário](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-usuario-marcador.png | width=100)
+
 ## O projeto
 
 O objetivo desse projeto era criar um Produto Mínimo Viável (_MVP_) de uma aplicação móvel para ser testado por usuários interessados por leitura. A idéia surgiu a partir da realização da dificuldade em adquirir novos livros a baixo custo e encontrar pessoas para trocar/doar livros parados na estante. Com esse aplicativo o usuário poderá encontrar outras pessoas nas proximidades que queiram doar e trocar livros e verificar quais os livros que elas desejam para estimular a troca/doação.
@@ -8,11 +12,11 @@ O objetivo desse projeto era criar um Produto Mínimo Viável (_MVP_) de uma apl
 
 ### Design Sprint
 
-1. Em equipe primeiramente mapeamos alguns desafios na área de entreterimento e identificamos na leitura alguns problemas que buscamos entender melhor levantando algumas hipóteses e fazendo pesquisas utilizando formulários para entender a dor do usuário. 
+1. Em equipe primeiramente mapeamos alguns desafios na área de entretenimento e identificamos na leitura alguns problemas que buscamos entender melhor levantando hipóteses e fazendo pesquisas utilizando formulários para entender a dor do usuário. 
 
 2. Definimos as dores dos usuários que queríamos solucionar, validamos as soluções e fizemos o benchmarking para definir o valor e diferencial do produto
-  - Dores: dificuldade em encontrar novos títulos a baixo custo, tempo de demora de entrega do livro e valor frete para troca e doação de livros online, dificuldade em encontrar títulos específicos em sebos, dificuldade em repassar os livros que não desejam mais.
-  - Soluções: facilitar a conexão entre pessoas com livros disponíveis nas proximidades, facilitar o encontro para realizar as trocas pessoalmente, facilitar a busca por novos títulos, facilitar a inserção dos títulos no perfil do usuário.
+* Dores: dificuldade em encontrar novos títulos a baixo custo, tempo de demora de entrega do livro e valor frete para troca e doação de livros online, dificuldade em encontrar títulos específicos em sebos, dificuldade em repassar os livros que não desejam mais.
+* Soluções: facilitar a conexão entre pessoas com livros disponíveis nas proximidades, facilitar o encontro para realizar as trocas pessoalmente, facilitar a busca por novos títulos, facilitar a inserção dos títulos no perfil do usuário.
 
 3. Definimos as personas, fizemos os mapas de afinidade e a jornada do usuário para entender como seria o produto final e quais funcionalidades implementar.
 
@@ -25,8 +29,8 @@ O objetivo desse projeto era criar um Produto Mínimo Viável (_MVP_) de uma apl
 Foi definido que neste _MVP_ que usuário deveria ser capaz de:
 
 * Criar uma conta e definir uma localização pessoal para troca dos livros;
-* Buscar e adicionar à sua lista os títulos que possui e deseja doar ou trocar e os títulos que não tem e deseja adquirir;
-* Vizualizar no mapa outros usuários nas proximidades que podem ter livros de interesse para troca/doação;
+* Buscar e adicionar à sua lista pessoal os títulos que possui e deseja doar ou trocar e os títulos que não tem e deseja adquirir;
+* Visualizar no mapa outros usuários nas proximidades que podem ter livros de interesse para troca/doação;
 * Visualizar quais livros os outros usuários das proximidades adicionaram à suas listas de desejados e disponíveis;
 * Enviar uma mensagem para outros usuários para combinar a troca/doação.
 
