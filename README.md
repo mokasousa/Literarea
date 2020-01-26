@@ -1,8 +1,6 @@
 # Literárea
 
-![Login](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-login.png)
-![Mapa e Busca por Título](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-livro-busca.png)
-![Livros do usuário](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp-usuario-marcador.png)
+![Literárea MVP](https://github.com/mokasousa/Literarea/blob/master/images/literarea-mvp.png)
 
 ## O projeto
 
@@ -15,18 +13,20 @@ O objetivo desse projeto era criar um Produto Mínimo Viável (_MVP_) de uma apl
 1. Em equipe primeiramente mapeamos alguns desafios na área de entretenimento e identificamos na leitura alguns problemas que buscamos entender melhor levantando hipóteses e fazendo pesquisas utilizando formulários para entender a dor do usuário. 
 
 2. Definimos as dores dos usuários que queríamos solucionar, validamos as soluções e fizemos o benchmarking para definir o valor e diferencial do produto
-* Dores: dificuldade em encontrar novos títulos a baixo custo, tempo de demora de entrega do livro e valor frete para troca e doação de livros online, dificuldade em encontrar títulos específicos em sebos, dificuldade em repassar os livros que não desejam mais.
-* Soluções: facilitar a conexão entre pessoas com livros disponíveis nas proximidades, facilitar o encontro para realizar as trocas pessoalmente, facilitar a busca por novos títulos, facilitar a inserção dos títulos no perfil do usuário.
+  * Dores: dificuldade em encontrar novos títulos a baixo custo, tempo de demora de entrega do livro e valor frete para troca e doação de livros online, dificuldade em encontrar títulos específicos em sebos, dificuldade em repassar os livros que não desejam mais.
+  * Soluções: facilitar a conexão entre pessoas com livros disponíveis nas proximidades, facilitar o encontro para realizar as trocas pessoalmente, facilitar a busca por novos títulos, facilitar a inserção dos títulos no perfil do usuário.
 
 3. Definimos as personas, fizemos os mapas de afinidade e a jornada do usuário para entender como seria o produto final e quais funcionalidades implementar.
 
-4. Fizemos o protótipo do produto final utilizando [Figma](https://www.figma.com) e, através dos testes de usuário, fizemos ajustes no desenho. O protótipo que pode ser visualizado [aqui](https://marvelapp.com/1jfb6egg/screen/638667066).
+4. Fizemos o protótipo do produto final utilizando [Figma](https://www.figma.com) e, através dos testes de usuário, fizemos ajustes no desenho. O protótipo pode ser visualizado e testado [aqui](https://marvelapp.com/1jfb6egg/screen/638667066).
+
+![Protótipo do Produto Final](https://github.com/mokasousa/Literarea/blob/master/images/literarea-prototipo.png)
 
 5. Fizemos o planejamento utilizando o [Trello](https://trello.com/) para o desenvolvimento do _MVP_ com foco _mobile first_ pensando na jornada do usuário e nas funcionalidades essenciais para a utilização do aplicativo.
 
 ### Desenvolvimento
 
-Foi definido que neste _MVP_ que usuário deveria ser capaz de:
+Foi definido que neste [_MVP_](https://literarea-app.firebaseapp.com/) para _mobile_ o usuário seria capaz de:
 
 * Criar uma conta e definir uma localização pessoal para troca dos livros;
 * Buscar e adicionar à sua lista pessoal os títulos que possui e deseja doar ou trocar e os títulos que não tem e deseja adquirir;
@@ -42,7 +42,7 @@ Para adicionar essas funcionalidades ao aplicativo utilizamos:
 
 ## Considerações finais
 
-Esse projeto foi desenvolvido como parte do currículo do [Bootcamp da Laboratória Brasil](https://www.laboratoria.la/br) e foi criado e desenvolvido por:
+Esse trabalho foi proposto pelo [Bootcamp da Laboratória Brasil](https://www.laboratoria.la/br) e o projeto foi criado e desenvolvido por:
 
 * [Anannda Rios](https://github.com/ananndarios)
 * [Carol Rosatto](https://github.com/carolrosatto)
