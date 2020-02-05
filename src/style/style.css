@@ -1,4 +1,4 @@
-@media (max-width: 700px) {
+/* @media (max-width: 700px) { */
 *{
     padding: 0;
     border: none;
@@ -6,8 +6,15 @@
     font-family: 'Lato', sans-serif;
 }
 
+.page{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 /*LOGIN*/
 .login-page{
+    max-width: 700px;
     width: 100%;
     height: 100%;
 }
@@ -34,7 +41,7 @@
     box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     margin: 5%;
-    height: 530px;
+    height: min-content;
 }
 
 .email{
@@ -61,6 +68,10 @@
     margin: 0% 0% 3% 5%;
 }
 
+.login-btns{
+    text-align: center;
+}
+
 .btn-login{
     display: flex;
     justify-content: center;
@@ -69,8 +80,11 @@
     font-weight: bold;
     border-radius: 15px;
     width: 80%;
+    max-width: 260px;
     height: 32px;
-    margin: 10%
+    margin: 2em;
+    display: table-cell;
+    text-align: center;
 }
 
 .btn-google{
@@ -80,6 +94,7 @@
 
 .register-call{
     margin-top: 15%;
+    margin-bottom: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,7 +128,8 @@
     box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     margin: 5%;
-    height: 530px;
+    max-width: 700px;
+    height: min-content;
 }
 
 .register-logo{
@@ -179,9 +195,8 @@
     margin: auto;
 }
 
-#errorMessageSignup{
-    font-size: 80%;
-    color: red;
+.error-message{
+    margin:1em;
 }
 
 
@@ -198,6 +213,7 @@ header{
     justify-content: space-between;
     position: fixed;
     width: 97vw;
+    top: 0;
     border-bottom: solid 2px #C4C4C4;
     padding: 4px;
     background-color: #fff;
@@ -214,7 +230,9 @@ header{
     display: flex;
     border: solid 1px #b6b6b6;
     width: 90vw;
+    max-width: 700px;
     height: 70vw;
+    max-height: 500px;
     margin-top: 2vw;
 }
 
@@ -222,10 +240,12 @@ header{
     display: flex;
     justify-content: center;
     margin-top: 5vw;
+    margin-bottom: 1em;
 }
 
 .search{
     width: 60vw;
+    max-width: 550px;
     height: 7vw;
     border: solid 1px #8C2E86;
     border-radius: 2vw;
@@ -233,8 +253,15 @@ header{
 }
 
 .search-btn{
-    height: 10vw;
+    height: auto;
     padding: 2vw;
+}
+
+.img-book{
+    display: flex;
+    width: 100%;
+    max-width: 275px;
+    max-height: 388px;
 }
 
 .book-card{
@@ -242,6 +269,7 @@ header{
     flex-direction: row;
     width: 90vw;
     height: 60vw;
+    max-height: 388px;
     margin: 5vw;
     border-bottom: solid 1px #C4C4C4;
     box-shadow: 2px 2px 3px #b6b6b6a1;
@@ -274,6 +302,7 @@ header{
 }
 
 .header-img{
+    max-height: 45px;
     height: 7vw;
     margin-top: 1.5vw;
 }
@@ -302,14 +331,24 @@ header{
 }
 
 .title-map{
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     text-align: center;
     font-size: 16px;
     padding: 2vw;
     color: #591E3A;
     font-weight: bold;
-    margin-top: 15vw;
+    margin-top: 63px;
+}
+
+.info-map-and-search{
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
+    font-size: 16px;
+    padding: 2vw;
+    color: #591E3A;
+    font-weight: bold;
 }
 
 .empty-list{
@@ -320,5 +359,13 @@ header{
     width: 85vw;
 }
 
-}
+/* } */
 
+@media (min-width: 700px) {
+    .user-name{
+        font-size: 40px;
+    }
+    .list-title{
+        font-size: 2.2vw;
+    }
+}

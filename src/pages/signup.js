@@ -12,7 +12,6 @@ function newUser() {
 
   if (email.length > 0 && password.length > 0 && name.length > 0 && address.length > 0) {
 
-    // const geocoder = platform.getGeocodingService();
     firebase.auth()
     .createUserWithEmailAndPassword(email, password)
       .then((resp) => {

@@ -30,7 +30,7 @@ function Home() {
         <div id="map"></div>
       </div>
     </section>
-
+    <p class="info-map-and-search"> Clique nos marcadores do mapa para ver os livros disponíveis e adicione livros à sua lista pessoal ao realizar uma busca no campo abaixo </p> 
     <div class="search-box">
       ${Input({
         type: 'text',
@@ -223,12 +223,12 @@ function userProfile(actualUser) {
       querySnapshot.forEach((doc) => {
         let iWantTemplate = `
          <section class="book-card" data-id="">
-            <img src="${doc.data().photo}"/>
+            <img class="img-book" src="${doc.data().photo}"/>
             <article class="book-info">
               <p class="book-title">${doc.data().title}</p>
                 <p class="book-title">${doc.data().author}</p>
-              <button type="button" class="message-btn search-btn register-link"
-                onclick=app.message()>Mensagem</button>
+                ${doc.data().id === firebase.auth().currentUser.uid ? '' : `<button type="button" class="message-btn search-btn register-link"
+              onclick=app.message()>Mensagem</button>`}
             </article>
           </section>
           `
@@ -251,12 +251,12 @@ function userProfile(actualUser) {
       querySnapshot.forEach((doc) => {
         let exchangeTemplate = `
         <section class="book-card" data-id="">
-            <img src="${doc.data().photo}"/>
+            <img class="img-book" src="${doc.data().photo}"/>
             <article class="book-info">
               <p class="book-title">${doc.data().title}</p>
               <p class="book-title">${doc.data().author}</p>
-              <button type="button" class="message-btn search-btn register-link"
-                onclick=app.message()>Mensagem</button>
+              ${doc.data().id === firebase.auth().currentUser.uid ? '' : `<button type="button" class="message-btn search-btn register-link"
+              onclick=app.message()>Mensagem</button>`}
             </article>
           </section>
         `;
@@ -279,12 +279,12 @@ function userProfile(actualUser) {
       querySnapshot.forEach((doc) => {
         let donationTemplate = `
         <section class="book-card" data-id="">
-            <img src="${doc.data().photo}"/>
+            <img class="img-book" src="${doc.data().photo}"/>
             <article class="book-info">
               <p class="book-title">${doc.data().title}</p>
               <p class="book-title">${doc.data().author}</p>
-              <button type="button" class="message-btn search-btn register-link"
-                onclick=app.message()>Mensagem</button>
+              ${doc.data().id === firebase.auth().currentUser.uid ? '' : `<button type="button" class="message-btn search-btn register-link"
+              onclick=app.message()>Mensagem</button>`}
             </article>
           </section>
         `;

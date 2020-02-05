@@ -20,30 +20,6 @@ function loginRegisteredUser() {
     });
 }
 
-// function signInWithAccount(provider) {
-//   firebase.auth()
-//     .signInWithPopup(provider)
-//     .then((result) => {
-//       const user = result.user;
-//       firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
-//         if (doc.data()) {
-//           window.location.hash = '#home';
-//         } else {
-//           firebase.firestore().collection('users').doc(user.uid).set({
-//             name: user.displayName,
-//             biography: '',
-//           });
-//           window.location.hash = '#home';
-//         }
-//       });
-//     });
-// }
-
-// function loginGoogleUser() {
-//   const provider = new firebase.auth.GoogleAuthProvider();
-//   signInWithAccount(provider);
-// }
-
 function Login() {
   const userLogin = `
 
@@ -70,6 +46,7 @@ function Login() {
     onclick: loginRegisteredUser,
     title: 'ENTRAR',
   })}
+  <div id="errorMessage" class="error-message"></div>
   </div>
   `;
   const template = `
@@ -78,23 +55,11 @@ function Login() {
   <form class="form-content-login">
     <div class='logo-container'><img class='login-logo' src='/images/Logo.png'/></div><br>
     ${userLogin}
-    <div id="errorMessage" class="error-message"></div>
-    <p class='register-call'>É novo por aqui?<a class='register-link' href="#signup">REGISTRE-SE!</a></p> 
   </form>
+  <p class='register-call'>É novo por aqui?<a class='register-link' href="#signup">REGISTRE-SE!</a></p> 
   </article>
   `;
   return template;
 }
 
 export default Login;
-
-//window.signInWithAccount = signInWithAccount;
-
-
-
-  // ${Button({
-  //   id: 'authGoogleButton',
-  //   class: 'btn-google',
-  //   onclick: loginGoogleUser,
-  //   title: `<img src='/images/google-btn.png'>`,
-  // })}
